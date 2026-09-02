@@ -12,7 +12,9 @@ HTML columns, CSS, or theme-dependent table styling.
 - `assets/hero-split.gif`: 1280 × 720 animated GitHub hero.
 - `assets/hero-split-static.png`: matching representative still.
 - The README references the GIF with a cache-busting query parameter.
-- The existing identity, project, stack, and contact modules remain unchanged.
+- The README removes the separate identity module because GitHub's profile
+  sidebar and the split hero already identify Yi Han.
+- Project, stack, and contact modules remain unchanged.
 
 ## Composition
 
@@ -70,6 +72,12 @@ The hero is a single canvas with two visually distinct zones and no divider.
 - A 375px viewport may scale the entire composition, but must not overflow.
 - Transparent rounded outer canvas corners are retained.
 - The static PNG provides deterministic visual QA and repository fallback.
+
+## README sequence
+
+The visible order is split hero, KiwiCue, PanSub, Till Tally, focused tools,
+contact, then the native text links. `assets/identity.svg` is intentionally not
+referenced so the name appears only in GitHub's sidebar and the hero.
 
 ## Verification
 
