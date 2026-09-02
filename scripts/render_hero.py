@@ -51,15 +51,15 @@ def draw_header(draw: ImageDraw.ImageDraw) -> None:
 def draw_prompt(draw: ImageDraw.ImageDraw, frame: int) -> None:
     mono = font(MONO_FONT, 20)
     draw.rounded_rectangle(
-        (58, 286, 462, 329),
+        (806, 270, 1198, 318),
         radius=9,
         fill="#111313",
         outline=BORDER,
     )
-    draw.text((77, 297), "→", font=mono, fill=MINT)
-    draw.text((105, 297), "turning friction into flow", font=mono, fill=MUTED)
+    draw.text((825, 284), "→", font=mono, fill=MINT)
+    draw.text((853, 284), "turning friction into flow", font=mono, fill=MUTED)
     if (frame // 10) % 2 == 0:
-        draw.rectangle((432, 300, 439, 318), fill=MINT)
+        draw.rectangle((1168, 287, 1175, 305), fill=MINT)
 
 
 def draw_scanline(draw: ImageDraw.ImageDraw, frame: int) -> None:
@@ -68,6 +68,47 @@ def draw_scanline(draw: ImageDraw.ImageDraw, frame: int) -> None:
     fade = min(1.0, min(progress, 1 - progress) * 14)
     color = (124, 246, 206, int(100 * fade))
     draw.line((0, y, WIDTH, y), fill=color, width=2)
+
+
+def draw_status_node(
+    draw: ImageDraw.ImageDraw,
+    x: int,
+    label: str,
+    active: bool,
+) -> None:
+    outline = MINT if active else "#35413D"
+    draw.rounded_rectangle(
+        (x, 126, x + 104, 174),
+        radius=8,
+        fill="#141918",
+        outline=outline,
+    )
+    draw.text((x + 14, 142), label, font=font(MONO_FONT, 15), fill=OFF_WHITE)
+
+
+def draw_status_panel(draw: ImageDraw.ImageDraw, frame: int) -> None:
+    draw.rounded_rectangle(
+        (780, 56, 1224, 332),
+        radius=15,
+        fill="#0E1111",
+        outline="#293330",
+    )
+    draw.text((806, 78), "AUTOMATION STATUS", font=font(MONO_FONT, 16), fill=MUTED)
+    draw.ellipse((1178, 77, 1190, 89), fill=MINT)
+    draw.text((1197, 78), "LIVE", font=font(MONO_FONT, 13), fill=MINT)
+
+    active_node = min(2, (frame % 75) // 25)
+    positions = (806, 946, 1086)
+    for index, (x, label) in enumerate(zip(positions, ("INPUT", "AI", "ACTION"))):
+        draw_status_node(draw, x, label, index == active_node)
+        if index < 2:
+            draw.line((x + 108, 150, x + 136, 150), fill="#4A5A55", width=2)
+
+    labels = (("CONTEXT", "PARSED"), ("MODEL", "ROUTED"), ("OUTPUT", "READY"))
+    for index, (label, value) in enumerate(labels):
+        x = 806 + index * 138
+        draw.text((x, 205), label, font=font(MONO_FONT, 12), fill=MUTED)
+        draw.text((x, 226), value, font=font(MONO_FONT, 16), fill=OFF_WHITE)
 
 
 def mark_frame(draw: ImageDraw.ImageDraw, frame: int) -> None:
@@ -108,6 +149,7 @@ def make_frame(frame: int) -> Image.Image:
     draw = ImageDraw.Draw(image, "RGBA")
     draw_header(draw)
     draw_statement(draw, frame)
+    draw_status_panel(draw, frame)
     draw_prompt(draw, frame)
     draw_scanline(draw, frame)
     mark_frame(draw, frame)

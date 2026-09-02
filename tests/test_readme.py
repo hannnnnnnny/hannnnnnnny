@@ -47,6 +47,12 @@ class ReadmeTests(unittest.TestCase):
         for value in banned:
             self.assertNotIn(value, lowered)
 
+    def test_projects_use_a_structured_visual_table(self) -> None:
+        self.assertIn("<table>", self.text)
+        self.assertEqual(self.text.count("<tr>"), 3)
+        for number in ("01", "02", "03"):
+            self.assertIn(f"<strong>{number}</strong>", self.text)
+
 
 if __name__ == "__main__":
     unittest.main()
