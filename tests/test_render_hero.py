@@ -9,6 +9,12 @@ from scripts.render_hero import DURATION_MS, FRAME_COUNT, make_frame, render_ass
 
 
 class RenderHeroTests(unittest.TestCase):
+    def test_left_action_uses_supported_ascii_glyphs(self) -> None:
+        action = getattr(render_hero, "LEFT_ACTION", None)
+
+        self.assertEqual(action, "VIEW SELECTED WORK")
+        self.assertTrue(action.isascii())
+
     def test_split_hero_uses_approved_canvas(self) -> None:
         frame = make_frame(25)
 
@@ -52,6 +58,8 @@ class RenderHeroTests(unittest.TestCase):
 
             self.assertTrue(gif_path.exists())
             self.assertTrue(png_path.exists())
+            self.assertEqual(gif_path.name, "hero-split.gif")
+            self.assertEqual(png_path.name, "hero-split-static.png")
             self.assertLessEqual(gif_path.stat().st_size, 5 * 1024 * 1024)
 
             with Image.open(gif_path) as animation:

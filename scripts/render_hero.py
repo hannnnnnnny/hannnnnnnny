@@ -32,6 +32,7 @@ LEFT_COPY = (
     "I design and build AI-assisted products that turn\n"
     "repetitive workflows into reliable systems."
 )
+LEFT_ACTION = "VIEW SELECTED WORK"
 
 
 @cache
@@ -108,7 +109,7 @@ def draw_left_intro(draw: ImageDraw.ImageDraw) -> None:
         fill=MUTED, spacing=11,
     )
     draw.text(
-        (72, 560), "VIEW SELECTED WORK ↘",
+        (72, 560), LEFT_ACTION,
         font=font(MONO_FONT, 16), fill=OFF_WHITE,
     )
     draw.line((72, 598, 232, 598), fill=MINT, width=2)
@@ -221,8 +222,8 @@ def quantize(image: Image.Image) -> Image.Image:
 def render_assets(output_dir: Path) -> tuple[Path, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     frames = [quantize(make_frame(index)) for index in range(FRAME_COUNT)]
-    gif_path = output_dir / "hero.gif"
-    png_path = output_dir / "hero-static.png"
+    gif_path = output_dir / "hero-split.gif"
+    png_path = output_dir / "hero-split-static.png"
     frames[0].save(
         gif_path,
         save_all=True,

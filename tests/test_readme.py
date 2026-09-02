@@ -13,7 +13,7 @@ class ReadmeTests(unittest.TestCase):
 
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
-            "assets/hero.gif",
+            "assets/hero-split.gif",
             "assets/identity.svg",
             "assets/project-kiwicue.svg",
             "assets/project-pansub.svg",
@@ -32,8 +32,12 @@ class ReadmeTests(unittest.TestCase):
             local_path = relative_path.split("?", 1)[0]
             self.assertTrue((ROOT / local_path).exists())
 
-    def test_animated_hero_has_cache_buster(self) -> None:
-        self.assertRegex(self.text, r"assets/hero\.gif\?v=[a-z0-9-]+")
+    def test_split_poster_hero_is_versioned(self) -> None:
+        self.assertIn(
+            "assets/hero-split.gif?v=split-poster-20260903",
+            self.text,
+        )
+        self.assertNotIn("assets/hero.gif?v=", self.text)
 
     def test_approved_links_are_exact(self) -> None:
         links = [
