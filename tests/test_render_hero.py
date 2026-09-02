@@ -5,10 +5,16 @@ from pathlib import Path
 from PIL import Image
 
 from scripts import render_hero
-from scripts.render_hero import FPS, FRAME_COUNT, make_frame, render_assets
+from scripts.render_hero import DURATION_MS, FRAME_COUNT, make_frame, render_assets
 
 
 class RenderHeroTests(unittest.TestCase):
+    def test_split_hero_uses_approved_canvas(self) -> None:
+        frame = make_frame(25)
+
+        self.assertEqual(frame.size, (1280, 720))
+        self.assertEqual(frame.mode, "RGBA")
+
     def test_frame_has_transparent_rounded_corners(self) -> None:
         frame = make_frame(0)
 
@@ -16,23 +22,22 @@ class RenderHeroTests(unittest.TestCase):
         self.assertEqual(frame.getpixel((0, 0))[3], 0)
         self.assertEqual(frame.getpixel((22, 22))[3], 255)
 
-    def test_liquid_ribbon_stays_between_text_safe_areas(self) -> None:
-        ribbon_mask = getattr(render_hero, "ribbon_mask", None)
-        self.assertIsNotNone(ribbon_mask)
-        safe_boxes = ((40, 18, 760, 96), (40, 238, 780, 345))
+    def test_signals_stay_above_portrait_headline(self) -> None:
+        mint_mask = getattr(render_hero, "mint_signal_mask", None)
+        violet_mask = getattr(render_hero, "violet_signal_mask", None)
+        self.assertTrue(callable(mint_mask))
+        self.assertTrue(callable(violet_mask))
+        headline_box = (790, 330, 1185, 515)
 
         for frame_number in range(FRAME_COUNT):
-            mask = ribbon_mask(frame_number)
-            self.assertIsNotNone(mask.getbbox())
-            for safe_box in safe_boxes:
-                self.assertIsNone(
-                    mask.crop(safe_box).getbbox(),
-                    f"ribbon overlap at frame {frame_number}",
-                )
+            self.assertIsNone(mint_mask(frame_number).crop(headline_box).getbbox())
+            self.assertIsNone(violet_mask(frame_number).crop(headline_box).getbbox())
 
-    def test_liquid_ribbon_is_visible_in_frame(self) -> None:
+    def test_violet_signal_is_visible_in_portrait_card(self) -> None:
         frame = make_frame(25)
-        mask = render_hero.ribbon_mask(25)
+        violet_mask = getattr(render_hero, "violet_signal_mask", None)
+        self.assertTrue(callable(violet_mask))
+        mask = violet_mask(25)
         pixels = zip(frame.get_flattened_data(), mask.get_flattened_data())
         violet_pixels = sum(
             alpha > 0 and blue - red > 45
@@ -50,13 +55,13 @@ class RenderHeroTests(unittest.TestCase):
             self.assertLessEqual(gif_path.stat().st_size, 5 * 1024 * 1024)
 
             with Image.open(gif_path) as animation:
-                self.assertEqual(animation.size, (1280, 360))
+                self.assertEqual(animation.size, (1280, 720))
                 self.assertEqual(animation.n_frames, FRAME_COUNT)
-                self.assertEqual(animation.info["duration"], 1000 // FPS)
+                self.assertEqual(animation.info["duration"], DURATION_MS)
                 self.assertEqual(animation.convert("RGBA").getpixel((0, 0))[3], 0)
 
             with Image.open(png_path) as still:
-                self.assertEqual(still.size, (1280, 360))
+                self.assertEqual(still.size, (1280, 720))
                 self.assertEqual(still.getpixel((0, 0))[3], 0)
 
 
