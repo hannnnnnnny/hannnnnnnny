@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280"
+  height="168" viewBox="0 0 1280 168" role="img"
+  aria-labelledby="title desc">
+  <title id="title">PanSub</title>
+  <desc id="desc">Real-time AI Chinese subtitles for lecture recordings.</desc>
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#9F91FF" stroke-opacity=".055"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#9F91FF" stop-opacity=".16"/>
+      <stop offset=".55" stop-color="#9F91FF" stop-opacity=".035"/>
+      <stop offset="1" stop-color="#9F91FF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1278" height="166" rx="18"
+    fill="#080A0A" stroke="#29312F"/>
+  <rect x="2" y="2" width="1276" height="164" rx="17"
+    fill="url(#grid)" opacity=".72"/>
+  <rect x="2" y="2" width="1276" height="3" rx="1.5" fill="url(#fade)"/>
+  <line x1="112" y1="1" x2="112" y2="166" stroke="#29312F"/><line x1="860" y1="1" x2="860" y2="166" stroke="#29312F"/><text x="56" y="91" fill="#84908A" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">02 / 03</text><text x="153" y="61" fill="#F2F2EB" font-size="27" font-weight="750" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">PanSub ↗</text><text x="153" y="94" fill="#84908A" font-size="17" font-weight="400" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">Real-time AI Chinese subtitles for lecture recordings.</text><text x="153" y="128" fill="#9F91FF" font-size="12" font-weight="600" font-family="Consolas,monospace" text-anchor="start">AI · ACCESSIBILITY · JAVASCRIPT</text><line x1="957" y1="84" x2="1195" y2="84" stroke="#29312F"/><rect x="900" y="60" width="96" height="48" rx="10" fill="#0D1110" stroke="#29312F"/><text x="948" y="88" fill="#84908A" font-size="11" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">AUDIO</text><rect x="1020" y="60" width="96" height="48" rx="10" fill="#0D1110" stroke="#29312F"/><text x="1068" y="88" fill="#84908A" font-size="11" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">AI</text><rect x="1140" y="60" width="96" height="48" rx="10" fill="#0D1110" stroke="#9F91FF"/><text x="1188" y="88" fill="#9F91FF" font-size="11" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">SUBTITLE</text>
+</svg>

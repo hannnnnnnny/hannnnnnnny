@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280"
+  height="190" viewBox="0 0 1280 190" role="img"
+  aria-labelledby="title desc">
+  <title id="title">Yi Han profile</title>
+  <desc id="desc">Full-stack and AI product builder.</desc>
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#7CF6CE" stroke-opacity=".055"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#7CF6CE" stop-opacity=".16"/>
+      <stop offset=".55" stop-color="#7CF6CE" stop-opacity=".035"/>
+      <stop offset="1" stop-color="#7CF6CE" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1278" height="188" rx="18"
+    fill="#080A0A" stroke="#29312F"/>
+  <rect x="2" y="2" width="1276" height="186" rx="17"
+    fill="url(#grid)" opacity=".72"/>
+  <rect x="2" y="2" width="1276" height="3" rx="1.5" fill="url(#fade)"/>
+  <line x1="330" y1="1" x2="330" y2="188" stroke="#29312F"/><text x="42" y="48" fill="#84908A" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="start">PROFILE / 001</text><text x="42" y="101" fill="#F2F2EB" font-size="43" font-weight="800" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">Yi Han.</text><text x="42" y="135" fill="#7CF6CE" font-size="14" font-weight="600" font-family="Consolas,monospace" text-anchor="start">FULL-STACK × AI</text><text x="372" y="67" fill="#F2F2EB" font-size="21" font-weight="600" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">I design and build AI-assisted products that turn repetitive</text><text x="372" y="99" fill="#F2F2EB" font-size="21" font-weight="600" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">workflows into reliable systems people can actually use.</text><rect x="372" y="126" width="120" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="432" y="148" fill="#7CF6CE" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">PORTFOLIO ↗</text><rect x="506" y="126" width="112" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="562" y="148" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">LINKEDIN ↗</text><rect x="632" y="126" width="91" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="677" y="148" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">EMAIL ↗</text>
+</svg>

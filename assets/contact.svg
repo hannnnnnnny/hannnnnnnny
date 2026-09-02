@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280"
+  height="126" viewBox="0 0 1280 126" role="img"
+  aria-labelledby="title desc">
+  <title id="title">Contact Yi Han</title>
+  <desc id="desc">Have an idea worth automating? Contact Yi Han.</desc>
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#7CF6CE" stroke-opacity=".055"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#7CF6CE" stop-opacity=".16"/>
+      <stop offset=".55" stop-color="#7CF6CE" stop-opacity=".035"/>
+      <stop offset="1" stop-color="#7CF6CE" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1278" height="124" rx="18"
+    fill="#080A0A" stroke="#29312F"/>
+  <rect x="2" y="2" width="1276" height="122" rx="17"
+    fill="url(#grid)" opacity=".72"/>
+  <rect x="2" y="2" width="1276" height="3" rx="1.5" fill="url(#fade)"/>
+  <text x="38" y="55" fill="#F2F2EB" font-size="24" font-weight="750" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">Have an idea worth automating?</text><text x="38" y="87" fill="#84908A" font-size="12" font-weight="600" font-family="Consolas,monospace" text-anchor="start">BUILDING FROM AUCKLAND, NEW ZEALAND</text><rect x="1080" y="37" width="153" height="52" rx="26" fill="#7CF6CE"/><text x="1156" y="69" fill="#08100D" font-size="14" font-weight="800" font-family="Consolas,monospace" text-anchor="middle">LET&#x27;S TALK ↗</text>
+</svg>

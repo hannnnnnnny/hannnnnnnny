@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280"
+  height="128" viewBox="0 0 1280 128" role="img"
+  aria-labelledby="title desc">
+  <title id="title">Technology stack</title>
+  <desc id="desc">TypeScript, JavaScript, Java, Spring Boot, Vue, MySQL, AI APIs, Automation</desc>
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#7CF6CE" stroke-opacity=".055"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#7CF6CE" stop-opacity=".16"/>
+      <stop offset=".55" stop-color="#7CF6CE" stop-opacity=".035"/>
+      <stop offset="1" stop-color="#7CF6CE" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1278" height="126" rx="18"
+    fill="#080A0A" stroke="#29312F"/>
+  <rect x="2" y="2" width="1276" height="124" rx="17"
+    fill="url(#grid)" opacity=".72"/>
+  <rect x="2" y="2" width="1276" height="3" rx="1.5" fill="url(#fade)"/>
+  <text x="38" y="48" fill="#84908A" font-size="12" font-weight="600" font-family="Consolas,monospace" text-anchor="start">BUILDING WITH</text><text x="38" y="85" fill="#F2F2EB" font-size="26" font-weight="750" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">Focused tools.</text><line x1="285" y1="1" x2="285" y2="126" stroke="#29312F"/><rect x="328" y="46" width="120" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="388" y="68" fill="#7CF6CE" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">TypeScript</text><rect x="458" y="46" width="120" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="518" y="68" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">JavaScript</text><rect x="588" y="46" width="78" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="627" y="68" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">Java</text><rect x="676" y="46" width="127" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="739" y="68" fill="#7CF6CE" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">Spring Boot</text><rect x="813" y="46" width="71" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="848" y="68" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">Vue</text><rect x="894" y="46" width="85" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="936" y="68" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">MySQL</text><rect x="989" y="46" width="99" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="1038" y="68" fill="#7CF6CE" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">AI APIs</text><rect x="1098" y="46" width="120" height="34" rx="17" fill="#0D1110" stroke="#29312F"/><text x="1158" y="68" fill="#F2F2EB" font-size="13" font-weight="600" font-family="Consolas,monospace" text-anchor="middle">Automation</text>
+</svg>
