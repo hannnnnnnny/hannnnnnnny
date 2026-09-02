@@ -29,7 +29,11 @@ class ReadmeTests(unittest.TestCase):
         self.assertGreaterEqual(len(images), 1)
         for alt, relative_path in images:
             self.assertTrue(alt.strip())
-            self.assertTrue((ROOT / relative_path).exists())
+            local_path = relative_path.split("?", 1)[0]
+            self.assertTrue((ROOT / local_path).exists())
+
+    def test_animated_hero_has_cache_buster(self) -> None:
+        self.assertRegex(self.text, r"assets/hero\.gif\?v=[a-z0-9-]+")
 
     def test_approved_links_are_exact(self) -> None:
         links = [

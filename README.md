@@ -1,4 +1,4 @@
-![Yi Han — AI automation engineer turning friction into flow.](assets/hero.gif)
+![Yi Han — AI automation engineer turning friction into flow.](assets/hero.gif?v=p1a-20260903)
 
 [![About Yi Han: full-stack developer building AI-assisted products and practical automation in Auckland, New Zealand.](assets/identity.svg)](https://hannnnnnnny.github.io/yi-han-software-engineer/)
 
