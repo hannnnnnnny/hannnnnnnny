@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from functools import cache
+from math import pi, sin
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 WIDTH = 1280
 HEIGHT = 360
@@ -11,12 +12,13 @@ FPS = 20
 FRAME_COUNT = FPS * 5
 DURATION_MS = 1000 // FPS
 
-BG = "#080909"
+BG = "#070A09"
 OFF_WHITE = "#F4F3ED"
-MUTED = "#747A76"
-MINT = "#7CF6CE"
-CORAL = "#FF5A3C"
-BORDER = "#2C3030"
+MUTED = "#7A8681"
+MINT = "#71F6C6"
+VIOLET = "#8E7CFF"
+CORAL = "#FF6B4A"
+BORDER = "#25302C"
 
 FONT_ROOT = Path("C:/Windows/Fonts")
 DISPLAY_FONT = FONT_ROOT / "segoeuib.ttf"
@@ -30,134 +32,106 @@ def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(path), size)
 
 
-def ease(value: float) -> float:
-    clamped = max(0.0, min(1.0, value))
-    return clamped * clamped * (3 - 2 * clamped)
+@cache
+def rounded_alpha() -> Image.Image:
+    mask = Image.new("L", (WIDTH, HEIGHT), 0)
+    ImageDraw.Draw(mask).rounded_rectangle(
+        (0, 0, WIDTH - 1, HEIGHT - 1), radius=22, fill=255
+    )
+    return mask
 
 
-def phase(frame: int, start: int, end: int) -> float:
-    return ease((frame - start) / max(1, end - start))
+def ribbon_mask(frame: int) -> Image.Image:
+    mask = Image.new("L", (WIDTH, HEIGHT), 0)
+    upper = []
+    lower = []
+    time = frame / FRAME_COUNT * 2 * pi
+    for x in range(0, WIDTH + 1, 8):
+        wave = sin(x / 118 + time) * 11 + sin(x / 51 - time * 1.3) * 5
+        thickness = 34 + sin(x / 83 + time * 0.7) * 5
+        center = 166 + wave
+        upper.append((x, int(center - thickness)))
+        lower.append((x, int(center + thickness)))
+    ImageDraw.Draw(mask).polygon(upper + list(reversed(lower)), fill=255)
+    return mask
 
 
-def draw_header(draw: ImageDraw.ImageDraw) -> None:
+@cache
+def ribbon_gradient() -> Image.Image:
+    colors = ((113, 246, 198), (142, 124, 255), (255, 107, 74))
+    strip = Image.new("RGBA", (WIDTH, 1))
+    pixels = strip.load()
+    for x in range(WIDTH):
+        position = x / (WIDTH - 1) * 2
+        index = min(1, int(position))
+        mix = position - index
+        start, end = colors[index], colors[index + 1]
+        pixels[x, 0] = tuple(
+            int(a + (b - a) * mix) for a, b in zip(start, end)
+        ) + (255,)
+    return strip.resize((WIDTH, HEIGHT))
+
+
+def draw_grid(draw: ImageDraw.ImageDraw) -> None:
+    for x in range(0, WIDTH, 64):
+        draw.line((x, 0, x, HEIGHT), fill=(25, 34, 31, 90), width=1)
+    for y in range(0, HEIGHT, 60):
+        draw.line((0, y, WIDTH, y), fill=(25, 34, 31, 90), width=1)
+
+
+def draw_ribbon(image: Image.Image, frame: int) -> None:
+    mask = ribbon_mask(frame)
+    glow_alpha = mask.filter(ImageFilter.GaussianBlur(22)).point(
+        lambda value: value // 4
+    )
+    glow = Image.new("RGBA", image.size, (113, 246, 198, 0))
+    glow.putalpha(glow_alpha)
+    image.alpha_composite(glow)
+    signal = ribbon_gradient().copy()
+    signal.putalpha(mask)
+    image.alpha_composite(signal)
+
+
+def draw_top_copy(draw: ImageDraw.ImageDraw) -> None:
+    mono = font(MONO_FONT, 17)
+    draw.text((52, 34), "YI HAN / AI AUTOMATION ENGINEER", font=mono, fill=MINT)
+    draw.text((1228, 34), "AUCKLAND · NZ", font=mono, fill=MUTED, anchor="ra")
+    draw.line((52, 72, 1228, 72), fill=BORDER, width=1)
+
+
+def draw_bottom_copy(draw: ImageDraw.ImageDraw) -> None:
+    display = font(DISPLAY_FONT, 49)
+    mono = font(MONO_FONT, 15)
+    draw.text((52, 252), "TURN FRICTION INTO", font=display, fill=OFF_WHITE)
+    prefix_width = draw.textlength("TURN FRICTION INTO ", font=display)
+    draw.text((52 + prefix_width, 252), "FLOW.", font=display, fill=MINT)
     draw.text(
-        (58, 38),
-        "YI HAN / CURRENT MODE: BUILDING",
-        font=font(MONO_FONT, 19),
-        fill=MUTED,
+        (1228, 258), "AI → SYSTEMS → ACTION", font=mono, fill=OFF_WHITE, anchor="ra"
     )
-
-
-def draw_prompt(draw: ImageDraw.ImageDraw, frame: int) -> None:
-    mono = font(MONO_FONT, 20)
-    draw.rounded_rectangle(
-        (806, 270, 1198, 318),
-        radius=9,
-        fill="#111313",
-        outline=BORDER,
-    )
-    draw.text((825, 284), "→", font=mono, fill=MINT)
-    draw.text((853, 284), "turning friction into flow", font=mono, fill=MUTED)
-    if (frame // 10) % 2 == 0:
-        draw.rectangle((1168, 287, 1175, 305), fill=MINT)
-
-
-def draw_scanline(draw: ImageDraw.ImageDraw, frame: int) -> None:
-    progress = frame / (FRAME_COUNT - 1)
-    y = int(progress * (HEIGHT + 30)) - 15
-    fade = min(1.0, min(progress, 1 - progress) * 14)
-    color = (124, 246, 206, int(100 * fade))
-    draw.line((0, y, WIDTH, y), fill=color, width=2)
-
-
-def draw_status_node(
-    draw: ImageDraw.ImageDraw,
-    x: int,
-    label: str,
-    active: bool,
-) -> None:
-    outline = MINT if active else "#35413D"
-    draw.rounded_rectangle(
-        (x, 126, x + 104, 174),
-        radius=8,
-        fill="#141918",
-        outline=outline,
-    )
-    draw.text((x + 14, 142), label, font=font(MONO_FONT, 15), fill=OFF_WHITE)
-
-
-def draw_status_panel(draw: ImageDraw.ImageDraw, frame: int) -> None:
-    draw.rounded_rectangle(
-        (780, 56, 1224, 332),
-        radius=15,
-        fill="#0E1111",
-        outline="#293330",
-    )
-    draw.text((806, 78), "AUTOMATION STATUS", font=font(MONO_FONT, 16), fill=MUTED)
-    draw.ellipse((1178, 77, 1190, 89), fill=MINT)
-    draw.text((1197, 78), "LIVE", font=font(MONO_FONT, 13), fill=MINT)
-
-    active_node = min(2, (frame % 75) // 25)
-    positions = (806, 946, 1086)
-    for index, (x, label) in enumerate(zip(positions, ("INPUT", "AI", "ACTION"))):
-        draw_status_node(draw, x, label, index == active_node)
-        if index < 2:
-            draw.line((x + 108, 150, x + 136, 150), fill="#4A5A55", width=2)
-
-    labels = (("CONTEXT", "PARSED"), ("MODEL", "ROUTED"), ("OUTPUT", "READY"))
-    for index, (label, value) in enumerate(labels):
-        x = 806 + index * 138
-        draw.text((x, 205), label, font=font(MONO_FONT, 12), fill=MUTED)
-        draw.text((x, 226), value, font=font(MONO_FONT, 16), fill=OFF_WHITE)
-
-
-def mark_frame(draw: ImageDraw.ImageDraw, frame: int) -> None:
-    for bit in range(7):
-        color = MINT if frame & (1 << bit) else BG
-        draw.point((WIDTH - bit - 1, HEIGHT - 1), fill=color)
-
-
-def draw_statement(draw: ImageDraw.ImageDraw, frame: int) -> None:
-    display = font(DISPLAY_FONT, 68)
-    x, y = 58, 98
-    old_text = "Repetitive work."
-    draw.text((x, y), old_text, font=display, fill=MUTED)
-
-    old_box = draw.textbbox((x, y), old_text, font=display)
-    strike_progress = phase(frame, 10, 27)
-    strike_end = x + int((old_box[2] - x) * strike_progress)
-    draw.rounded_rectangle(
-        (x, y + 43, strike_end, y + 50),
-        radius=3,
-        fill=CORAL,
-    )
-
-    enter = phase(frame, 28, 45)
-    exit_progress = phase(frame, 74, 89)
-    visible = max(0.0, enter - exit_progress)
-    new_y = 193 + int((1 - visible) * 45)
     draw.text(
-        (x, new_y),
-        "Reliable systems.",
-        font=display,
-        fill=(124, 246, 206, int(255 * visible)),
+        (1228, 286), "CURRENT MODE / BUILDING", font=mono, fill=MUTED, anchor="ra"
     )
+    draw.line((52, 328, 1228, 328), fill=BORDER, width=1)
 
 
 def make_frame(frame: int) -> Image.Image:
     image = Image.new("RGBA", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(image, "RGBA")
-    draw_header(draw)
-    draw_statement(draw, frame)
-    draw_status_panel(draw, frame)
-    draw_prompt(draw, frame)
-    draw_scanline(draw, frame)
-    mark_frame(draw, frame)
-    return image.convert("RGB")
+    draw_grid(draw)
+    draw_ribbon(image, frame)
+    draw_top_copy(draw)
+    draw_bottom_copy(draw)
+    image.putalpha(rounded_alpha())
+    return image
 
 
 def quantize(image: Image.Image) -> Image.Image:
-    return image.quantize(colors=64, method=Image.Quantize.MEDIANCUT)
+    opaque = Image.new("RGB", image.size, BG)
+    opaque.paste(image.convert("RGB"), mask=image.getchannel("A"))
+    palette_image = opaque.quantize(colors=96, method=Image.Quantize.MEDIANCUT)
+    transparent = image.getchannel("A").point(lambda value: 255 if value == 0 else 0)
+    palette_image.paste(255, mask=transparent)
+    return palette_image
 
 
 def render_assets(output_dir: Path) -> tuple[Path, Path]:
@@ -173,8 +147,9 @@ def render_assets(output_dir: Path) -> tuple[Path, Path]:
         loop=0,
         optimize=True,
         disposal=2,
+        transparency=255,
     )
-    make_frame(55).save(png_path, optimize=True)
+    make_frame(25).save(png_path, optimize=True)
     return gif_path, png_path
 
 

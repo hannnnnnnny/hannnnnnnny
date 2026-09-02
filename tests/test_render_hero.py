@@ -4,28 +4,42 @@ from pathlib import Path
 
 from PIL import Image
 
+from scripts import render_hero
 from scripts.render_hero import FPS, FRAME_COUNT, make_frame, render_assets
 
 
 class RenderHeroTests(unittest.TestCase):
-    def test_prompt_never_enters_manifesto_safe_area(self) -> None:
-        prompt_fill = (17, 19, 19)
-        for frame_number in range(FRAME_COUNT):
-            frame = make_frame(frame_number)
-            safe_area = frame.crop((40, 80, 720, 330))
-            prompt_pixels = sum(
-                pixel == prompt_fill for pixel in safe_area.get_flattened_data()
-            )
-            self.assertEqual(prompt_pixels, 0, f"overlap at frame {frame_number}")
+    def test_frame_has_transparent_rounded_corners(self) -> None:
+        frame = make_frame(0)
 
-    def test_right_status_area_has_visual_content(self) -> None:
-        frame = make_frame(55)
-        right_area = frame.crop((760, 55, 1230, 330))
-        background = (8, 9, 9)
-        content_pixels = sum(
-            pixel != background for pixel in right_area.get_flattened_data()
+        self.assertEqual(frame.mode, "RGBA")
+        self.assertEqual(frame.getpixel((0, 0))[3], 0)
+        self.assertEqual(frame.getpixel((22, 22))[3], 255)
+
+    def test_liquid_ribbon_stays_between_text_safe_areas(self) -> None:
+        ribbon_mask = getattr(render_hero, "ribbon_mask", None)
+        self.assertIsNotNone(ribbon_mask)
+        safe_boxes = ((40, 18, 760, 96), (40, 238, 780, 345))
+
+        for frame_number in range(FRAME_COUNT):
+            mask = ribbon_mask(frame_number)
+            self.assertIsNotNone(mask.getbbox())
+            for safe_box in safe_boxes:
+                self.assertIsNone(
+                    mask.crop(safe_box).getbbox(),
+                    f"ribbon overlap at frame {frame_number}",
+                )
+
+    def test_liquid_ribbon_is_visible_in_frame(self) -> None:
+        frame = make_frame(25)
+        mask = render_hero.ribbon_mask(25)
+        pixels = zip(frame.get_flattened_data(), mask.get_flattened_data())
+        violet_pixels = sum(
+            alpha > 0 and blue - red > 45
+            for (red, _green, blue, _alpha), alpha in pixels
         )
-        self.assertGreater(content_pixels, 15_000)
+
+        self.assertGreater(violet_pixels, 2_000)
 
     def test_rendered_assets_match_profile_constraints(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -39,9 +53,11 @@ class RenderHeroTests(unittest.TestCase):
                 self.assertEqual(animation.size, (1280, 360))
                 self.assertEqual(animation.n_frames, FRAME_COUNT)
                 self.assertEqual(animation.info["duration"], 1000 // FPS)
+                self.assertEqual(animation.convert("RGBA").getpixel((0, 0))[3], 0)
 
             with Image.open(png_path) as still:
                 self.assertEqual(still.size, (1280, 360))
+                self.assertEqual(still.getpixel((0, 0))[3], 0)
 
 
 if __name__ == "__main__":
