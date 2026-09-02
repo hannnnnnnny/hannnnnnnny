@@ -11,16 +11,18 @@ class ReadmeTests(unittest.TestCase):
     def setUp(self) -> None:
         self.text = README.read_text(encoding="utf-8")
 
-    def test_required_identity_and_projects_are_present(self) -> None:
-        required = [
-            "Hey, I'm Yi Han.",
-            "AI-assisted products",
-            "KiwiCue",
-            "PanSub",
-            "Till Tally",
+    def test_approved_visual_assets_appear_once(self) -> None:
+        assets = [
+            "assets/hero.gif",
+            "assets/identity.svg",
+            "assets/project-kiwicue.svg",
+            "assets/project-pansub.svg",
+            "assets/project-till-tally.svg",
+            "assets/stack.svg",
+            "assets/contact.svg",
         ]
-        for value in required:
-            self.assertIn(value, self.text)
+        for asset in assets:
+            self.assertEqual(self.text.count(asset), 1, asset)
 
     def test_local_images_exist_and_have_alt_text(self) -> None:
         images = re.findall(r"!\[([^\]]+)\]\(([^)]+)\)", self.text)
@@ -47,11 +49,9 @@ class ReadmeTests(unittest.TestCase):
         for value in banned:
             self.assertNotIn(value, lowered)
 
-    def test_projects_use_a_structured_visual_table(self) -> None:
-        self.assertIn("<table>", self.text)
-        self.assertEqual(self.text.count("<tr>"), 3)
-        for number in ("01", "02", "03"):
-            self.assertIn(f"<strong>{number}</strong>", self.text)
+    def test_layout_avoids_markdown_heavy_components(self) -> None:
+        self.assertNotIn("<table", self.text.lower())
+        self.assertNotIn("> **", self.text)
 
 
 if __name__ == "__main__":

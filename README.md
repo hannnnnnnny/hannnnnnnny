@@ -1,52 +1,21 @@
-![Repetitive work transforms into reliable systems.](assets/hero.gif)
+![Yi Han — AI automation engineer turning friction into flow.](assets/hero.gif)
 
-# Hey, I'm Yi Han.
+[![About Yi Han: full-stack developer building AI-assisted products and practical automation in Auckland, New Zealand.](assets/identity.svg)](https://hannnnnnnny.github.io/yi-han-software-engineer/)
 
-A full-stack developer in Auckland building **AI-assisted products and practical automation**. I turn messy, repetitive workflows into reliable systems people can actually use.
+[![KiwiCue — bilingual Auckland event discovery with smart reminders.](assets/project-kiwicue.svg)](https://github.com/hannnnnnnny/kiwicue)
 
-**[View my portfolio ↗](https://hannnnnnnny.github.io/yi-han-software-engineer/)** · **[Connect on LinkedIn ↗](https://www.linkedin.com/in/yi-han-29ab28323/)** · **[Email me ↗](mailto:harryhaber606@gmail.com)**
+[![PanSub — real-time AI Chinese subtitles for lecture recordings.](assets/project-pansub.svg)](https://github.com/hannnnnnnny/pansub)
 
-## What I build
+[![Till Tally — retail analytics that turns sales data into useful decisions.](assets/project-till-tally.svg)](https://github.com/hannnnnnnny/till-tally)
 
-> **AUTOMATE** — AI-assisted workflows that reduce repetitive work.
->
-> **ENGINEER** — Full-stack products with clear, useful interfaces.
->
-> **CONNECT** — Systems that turn data and context into action.
+![Focused tools: TypeScript, JavaScript, Java, Spring Boot, Vue, MySQL, AI APIs, and automation.](assets/stack.svg)
 
-## Selected systems
+[![Have an idea worth automating? Contact Yi Han.](assets/contact.svg)](mailto:harryhaber606@gmail.com)
 
-<table>
-  <tr>
-    <td width="10%" align="center"><strong>01</strong></td>
-    <td width="58%">
-      <strong><a href="https://github.com/hannnnnnnny/kiwicue">KiwiCue ↗</a></strong><br />
-      Bilingual Auckland event discovery with smart reminders.
-    </td>
-    <td width="32%"><code>TypeScript</code><br /><sub>Discovery · Automation</sub></td>
-  </tr>
-  <tr>
-    <td width="10%" align="center"><strong>02</strong></td>
-    <td width="58%">
-      <strong><a href="https://github.com/hannnnnnnny/pansub">PanSub ↗</a></strong><br />
-      Real-time AI Chinese subtitles for lecture recordings.
-    </td>
-    <td width="32%"><code>JavaScript</code><br /><sub>AI · Accessibility</sub></td>
-  </tr>
-  <tr>
-    <td width="10%" align="center"><strong>03</strong></td>
-    <td width="58%">
-      <strong><a href="https://github.com/hannnnnnnny/till-tally">Till Tally ↗</a></strong><br />
-      Retail analytics that turns sales data into useful decisions.
-    </td>
-    <td width="32%"><code>TypeScript</code><br /><sub>Data · Business intelligence</sub></td>
-  </tr>
-</table>
-
-## Working with
-
-TypeScript · JavaScript · Java · Spring Boot · Vue · MySQL · AI integrations · Workflow automation
-
----
-
-Building from Auckland, New Zealand — always interested in useful software, thoughtful automation, and the problems between them.
+<p align="center">
+  <a href="https://hannnnnnnny.github.io/yi-han-software-engineer/">Portfolio</a>
+  &nbsp;·&nbsp;
+  <a href="https://www.linkedin.com/in/yi-han-29ab28323/">LinkedIn</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:harryhaber606@gmail.com">Email</a>
+</p>
