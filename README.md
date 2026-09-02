@@ -1,7 +1,5 @@
 ![Hi, I'm Yi Han — AI automation engineer with a liquid signal poster.](assets/hero-split.gif?v=split-poster-20260903)
 
-[![About Yi Han: full-stack developer building AI-assisted products and practical automation in Auckland, New Zealand.](assets/identity.svg)](https://hannnnnnnny.github.io/yi-han-software-engineer/)
-
 [![KiwiCue — bilingual Auckland event discovery with smart reminders.](assets/project-kiwicue.svg)](https://github.com/hannnnnnnny/kiwicue)
 
 [![PanSub — real-time AI Chinese subtitles for lecture recordings.](assets/project-pansub.svg)](https://github.com/hannnnnnnny/pansub)

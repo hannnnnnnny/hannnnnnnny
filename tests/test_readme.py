@@ -14,7 +14,6 @@ class ReadmeTests(unittest.TestCase):
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
             "assets/hero-split.gif",
-            "assets/identity.svg",
             "assets/project-kiwicue.svg",
             "assets/project-pansub.svg",
             "assets/project-till-tally.svg",
@@ -23,6 +22,9 @@ class ReadmeTests(unittest.TestCase):
         ]
         for asset in assets:
             self.assertEqual(self.text.count(asset), 1, asset)
+
+    def test_identity_card_is_not_repeated_below_hero(self) -> None:
+        self.assertNotIn("assets/identity.svg", self.text)
 
     def test_local_images_exist_and_have_alt_text(self) -> None:
         images = re.findall(r"!\[([^\]]+)\]\(([^)]+)\)", self.text)
