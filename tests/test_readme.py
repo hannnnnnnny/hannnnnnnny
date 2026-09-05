@@ -14,9 +14,9 @@ class ReadmeTests(unittest.TestCase):
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
             "assets/hero-split.gif",
-            "assets/project-kiwicue.gif",
-            "assets/project-pansub.gif",
-            "assets/project-till-tally.gif",
+            "assets/project-kiwicue-hd.png",
+            "assets/project-pansub-hd.png",
+            "assets/project-till-tally-hd.png",
             "assets/stack.gif",
             "assets/contact.gif",
         ]
