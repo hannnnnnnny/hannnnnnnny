@@ -36,7 +36,7 @@ class ReadmeTests(unittest.TestCase):
 
     def test_split_poster_hero_is_versioned(self) -> None:
         self.assertIn(
-            "assets/hero-split.gif?v=split-poster-20260903",
+            "assets/hero-split.gif?v=neural-motion-20260905",
             self.text,
         )
         self.assertNotIn("assets/hero.gif?v=", self.text)

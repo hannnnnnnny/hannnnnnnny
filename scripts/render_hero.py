@@ -16,7 +16,7 @@ BG = "#0A0E13"
 CARD = "#0C1116"
 ART = "#060A09"
 OFF_WHITE = "#F4F3ED"
-MUTED = "#79837F"
+MUTED = "#A1B4B0"
 MINT = "#71F6C6"
 VIOLET = "#8E7CFF"
 CORAL = "#FF6B4A"
@@ -63,10 +63,10 @@ def signal_y(x: int, frame: int, lane: int) -> int:
     time = frame / FRAME_COUNT * 2 * pi
     if lane == 0:
         base = 214 - 56 * progress - 24 * sin(progress * pi)
-        motion = 5 * sin(time + progress * 2 * pi)
+        motion = 14 * sin(time + progress * 2 * pi)
     else:
         base = 282 - 48 * progress - 18 * sin(progress * pi)
-        motion = 6 * sin(time * 1.15 + progress * 2.3 * pi)
+        motion = 12 * sin(time + progress * 2.3 * pi)
     return int(base + motion)
 
 
@@ -93,8 +93,10 @@ def draw_background(image: Image.Image) -> None:
     draw = ImageDraw.Draw(image, "RGBA")
     draw.rounded_rectangle((0, 0, WIDTH - 1, HEIGHT - 1), 22, fill=BG)
     for x in range(0, 720, 72):
-        draw.line((x, 0, x, HEIGHT), fill=(21, 31, 29, 38))
-    draw.ellipse((-190, 60, 620, 870), fill=(20, 64, 50, 22))
+        draw.line((x, 0, x, HEIGHT), fill="#101C21")
+    haze = Image.new("RGBA", image.size)
+    ImageDraw.Draw(haze).ellipse((-120, 140, 520, 640), fill=(30, 145, 121, 32))
+    image.alpha_composite(haze.filter(ImageFilter.GaussianBlur(100)))
 
 
 def draw_left_intro(draw: ImageDraw.ImageDraw) -> None:
@@ -120,16 +122,16 @@ def draw_card_art(image: Image.Image) -> None:
     draw = ImageDraw.Draw(layer, "RGBA")
     draw.rectangle(ART_BOX, fill=ART)
     for x in range(ART_BOX[0], ART_BOX[2] + 1, 40):
-        draw.line((x, ART_BOX[1], x, ART_BOX[3]), fill=(29, 48, 41, 105))
+        draw.line((x, ART_BOX[1], x, ART_BOX[3]), fill="#11221F")
     for y in range(ART_BOX[1], ART_BOX[3] + 1, 40):
-        draw.line((ART_BOX[0], y, ART_BOX[2], y), fill=(29, 48, 41, 105))
+        draw.line((ART_BOX[0], y, ART_BOX[2], y), fill="#11221F")
     layer.putalpha(art_mask())
     image.alpha_composite(layer)
 
 
 def draw_signal(image: Image.Image, mask: Image.Image, color: tuple[int, int, int]) -> None:
     glow_alpha = mask.filter(ImageFilter.GaussianBlur(18)).point(
-        lambda value: value // 2
+        lambda value: min(190, value * 4)
     )
     glow_alpha = ImageChops.multiply(glow_alpha, art_mask())
     glow = Image.new("RGBA", image.size, color + (0,))
@@ -143,7 +145,6 @@ def draw_signal(image: Image.Image, mask: Image.Image, color: tuple[int, int, in
 def draw_coral_tail(image: Image.Image, frame: int) -> None:
     mask = violet_signal_mask(frame)
     fade = Image.new("L", image.size, 0)
-    pixels = fade.load()
     for x in range(1050, ART_BOX[2] + 1):
         alpha = int(255 * (x - 1050) / (ART_BOX[2] - 1050))
         ImageDraw.Draw(fade).line((x, 190, x, 310), fill=alpha)
@@ -154,15 +155,43 @@ def draw_coral_tail(image: Image.Image, frame: int) -> None:
 
 
 def draw_particle(image: Image.Image, frame: int) -> None:
-    progress = frame / (FRAME_COUNT - 1)
-    x = ART_BOX[0] + int(progress * (ART_BOX[2] - ART_BOX[0]))
-    y = signal_y(x, frame, 0)
-    opacity = int(255 * sin(progress * pi) ** 0.4)
     particle = Image.new("RGBA", image.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(particle, "RGBA")
-    draw.ellipse((x - 18, y - 18, x + 18, y + 18), fill=(113, 246, 198, opacity // 4))
-    draw.ellipse((x - 5, y - 5, x + 5, y + 5), fill=(244, 243, 237, opacity))
-    image.alpha_composite(particle.filter(ImageFilter.GaussianBlur(2)))
+    for lane in range(2):
+        for packet in range(3):
+            progress = (frame / FRAME_COUNT * 2 + packet / 3 + lane * .17) % 1
+            for trail in range(18):
+                position = progress - trail * .007
+                if not 0 <= position <= 1:
+                    continue
+                x = 780 + int(position * 440)
+                y = signal_y(x, frame, lane)
+                alpha = int(255 * (1 - trail / 18))
+                color = (205, 255, 240) if lane == 0 else (203, 183, 255)
+                draw.ellipse((x-3, y-3, x+3, y+3), fill=color + (alpha,))
+    particle.putalpha(ImageChops.multiply(particle.getchannel("A"), art_mask()))
+    image.alpha_composite(particle.filter(ImageFilter.GaussianBlur(4)))
+    image.alpha_composite(particle)
+
+
+def draw_telemetry(image: Image.Image, frame: int) -> None:
+    layer = Image.new("RGBA", image.size)
+    draw = ImageDraw.Draw(layer, "RGBA")
+    phase = frame / FRAME_COUNT
+    scan = 115 + int(phase * 205)
+    draw.line((795, scan, 1205, scan), fill=(113, 246, 198, 40), width=1)
+    for index in range(30):
+        x = 800 + index * 14
+        height = 4 + int(16 * (1 + sin(index * .6 - phase * 4 * pi)) / 2)
+        draw.line((x, 323, x, 323-height), fill=(113, 246, 198, 130), width=3)
+    for index in range(8):
+        x = 830 + index * 47
+        y = 130 + int((index * 29 - phase * 100) % 160)
+        draw.point((x, y), fill=(137, 222, 216, 180))
+    x = 72 + int(phase * 160)
+    draw.line((72, 598, 232, 598), fill=(43, 87, 78, 255), width=2)
+    draw.line((max(72, x-35), 598, x, 598), fill=(176, 255, 235, 255), width=3)
+    image.alpha_composite(layer)
 
 
 def draw_card_headline(draw: ImageDraw.ImageDraw) -> None:
@@ -174,15 +203,15 @@ def draw_card_headline(draw: ImageDraw.ImageDraw) -> None:
 
 def draw_card_caption(draw: ImageDraw.ImageDraw) -> None:
     draw.text(
-        (786, 548), "P1-A · LIQUID SIGNAL RIBBON",
+        (786, 548), "INTELLIGENCE IN MOTION",
         font=font(DISPLAY_FONT, 19), fill=OFF_WHITE,
     )
     draw.text(
-        (786, 588), "A luminous data stream in motion — restrained, fluid, and alive.",
+        (786, 588), "From context to decisions. From decisions to action.",
         font=font(REGULAR_FONT, 13), fill=MUTED,
     )
     draw.rounded_rectangle((786, 626, 970, 660), radius=17, outline=BORDER, width=2)
-    draw.text((807, 635), "LIGHT · TECH · FLUID", font=font(MONO_FONT, 11), fill=MUTED)
+    draw.text((807, 635), "AI / SYSTEMS / BUILD", font=font(MONO_FONT, 11), fill=MUTED)
 
 
 def draw_portrait_card(image: Image.Image, frame: int) -> None:
@@ -196,7 +225,7 @@ def draw_portrait_card(image: Image.Image, frame: int) -> None:
     draw_coral_tail(image, frame)
     draw_particle(image, frame)
     draw = ImageDraw.Draw(image, "RGBA")
-    draw.text((806, 78), "YI HAN / AI AUTOMATION ENGINEER", font=font(MONO_FONT, 11), fill=MUTED)
+    draw.text((806, 78), "NEURAL SIGNAL / ACTIVE", font=font(MONO_FONT, 11), fill=MUTED)
     draw_card_headline(draw)
     draw_card_caption(draw)
 
@@ -206,14 +235,21 @@ def make_frame(frame: int) -> Image.Image:
     draw_background(image)
     draw_left_intro(ImageDraw.Draw(image, "RGBA"))
     draw_portrait_card(image, frame)
+    draw_telemetry(image, frame)
     image.putalpha(rounded_alpha())
     return image
+
+
+@cache
+def animation_palette() -> Image.Image:
+    return make_frame(6).convert("RGB").quantize(colors=96)
 
 
 def quantize(image: Image.Image) -> Image.Image:
     opaque = Image.new("RGB", image.size, BG)
     opaque.paste(image.convert("RGB"), mask=image.getchannel("A"))
-    palette_image = opaque.quantize(colors=64, method=Image.Quantize.MEDIANCUT)
+    # A shared palette keeps stationary pixels identical for GIF delta encoding.
+    palette_image = opaque.quantize(palette=animation_palette(), dither=Image.Dither.NONE)
     transparent = image.getchannel("A").point(lambda value: 255 if value == 0 else 0)
     palette_image.paste(255, mask=transparent)
     return palette_image
@@ -231,7 +267,7 @@ def render_assets(output_dir: Path) -> tuple[Path, Path]:
         duration=DURATION_MS,
         loop=0,
         optimize=True,
-        disposal=2,
+        disposal=1,
         transparency=255,
     )
     make_frame(6).save(png_path, optimize=True)

@@ -1,4 +1,4 @@
-![Hi, I'm Yi Han — AI automation engineer with a liquid signal poster.](assets/hero-split.gif?v=split-poster-20260903)
+![Hi, I'm Yi Han — AI automation engineer with animated neural signals.](assets/hero-split.gif?v=neural-motion-20260905)
 
 [![KiwiCue — bilingual Auckland event discovery with smart reminders.](assets/project-kiwicue.svg)](https://github.com/hannnnnnnny/kiwicue)
 
