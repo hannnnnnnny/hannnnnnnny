@@ -2,7 +2,7 @@
 from pathlib import Path
 from math import sin, pi
 
-from PIL import Image, ImageDraw, ImageFont, ImageColor
+from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageOps
 
 if __package__:
     from .render_sections import PROJECTS
@@ -48,47 +48,46 @@ def edge(draw, frame, accent, height):
 
 def project_frame(project, frame):
     _, number, name, description, metadata, labels, accent = project
-    image = card(400, accent)
+    image = card(460, accent)
     draw = ImageDraw.Draw(image)
-    label(draw, (40, 68), name, 44, bold=True)
-    label(draw, (918, 62), "VIEW PROJECT", 17, accent, mono=True, anchor="rs")
-    lines = wrap_description(draw, description)
+    label(draw, (32, 54), "SELECTED WORK", 15, accent, mono=True)
+    label(draw, (32, 113), name, 40, bold=True)
+    lines = wrap_description(draw, description, width=300, size=26)
     for index, line in enumerate(lines):
-        label(draw, (40, 116+index*36), line, 28, "#BCC8C2")
-    label(draw, (40, 197), metadata, 18, accent, mono=True)
-    draw.line((40, 223, 920, 223), fill=BORDER)
-    draw_workflow(draw, labels, accent, frame)
-    edge(draw, frame, accent, 400)
+        label(draw, (32, 165+index*35), line, 26, "#BCC8C2")
+    for index, tag in enumerate(metadata.split(" · ")):
+        label(draw, (32, 325+index*25), tag, 17, accent, mono=True)
+    label(draw, (32, 423), "VIEW PROJECT  /", 19, TEXT, mono=True)
+    add_preview(image, project[0], accent)
+    edge(ImageDraw.Draw(image), frame, accent, 460)
     return image
 
 
-def wrap_description(draw, description):
-    font = ImageFont.truetype(str(FONTS / "segoeui.ttf"), 28)
+def add_preview(image, filename, accent):
+    source_name = filename.replace("project-", "").replace(".svg", ".png")
+    path = Path(__file__).resolve().parents[1] / "assets" / "previews" / source_name
+    with Image.open(path) as source:
+        preview = ImageOps.contain(source.convert("RGB"), (550, 354), Image.Resampling.LANCZOS)
+    draw = ImageDraw.Draw(image)
+    draw.rounded_rectangle((374, 30, 934, 430), 18, fill="#151B1D", outline=BORDER)
+    for x in (391, 405, 419):
+        draw.ellipse((x, 47, x+6, 53), fill=accent if x == 391 else "#52625C")
+    label(draw, (916, 55), "PRODUCT PREVIEW", 13, "#BCC8C2", mono=True, anchor="rs")
+    # Contain rather than crop: retain subtitles and dashboard labels in full.
+    image.paste(preview, (379+(550-preview.width)//2, 67+(354-preview.height)//2))
+
+
+def wrap_description(draw, description, width=780, size=28):
+    font = ImageFont.truetype(str(FONTS / "segoeui.ttf"), size)
     lines, line = [], ""
     for word in description.split():
         candidate = f"{line} {word}".strip()
-        if draw.textlength(candidate, font=font) > 780:
+        if draw.textlength(candidate, font=font) > width:
             lines.append(line)
             line = word
         else:
             line = candidate
     return lines + [line]
-
-
-def draw_workflow(draw, labels, accent, frame):
-    label(draw, (40, 263), "HOW IT WORKS", 16, "#A4B3AA", mono=True)
-    draw.line((170, 324, 790, 324), fill=BORDER, width=2)
-    phase = frame / FRAMES * 3
-    for i, value in enumerate(labels):
-        x = 40 + i * 310
-        active = int(phase) == i
-        draw.rounded_rectangle((x, 287, x+260, 361), 16, fill=SURFACE,
-                               outline=accent if active else BORDER, width=2 if active else 1)
-        label(draw, (x+130, 333), value, 24, accent if active else "#BCC8C2",
-              mono=True, anchor="ms")
-        if i < 2 and active:
-            dot = x + 267 + int((phase % 1) * 36)
-            draw.ellipse((dot-4, 320, dot+4, 328), fill=accent)
 
 
 def stack_frame(frame):
@@ -127,7 +126,7 @@ def contact_frame(frame):
 
 def export(name, renderer, directory):
     frames = [renderer(i) for i in range(FRAMES)]
-    palette = frames[0].convert("RGB").quantize(colors=96)
+    palette = frames[0].convert("RGB").quantize(colors=192 if name.startswith("project-") else 96)
     encoded = []
     for frame in frames:
         indexed = frame.convert("RGB").quantize(palette=palette, dither=Image.Dither.NONE)
