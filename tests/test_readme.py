@@ -14,11 +14,11 @@ class ReadmeTests(unittest.TestCase):
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
             "assets/hero-split.gif",
-            "assets/project-kiwicue.svg",
-            "assets/project-pansub.svg",
-            "assets/project-till-tally.svg",
-            "assets/stack.svg",
-            "assets/contact.svg",
+            "assets/project-kiwicue.gif",
+            "assets/project-pansub.gif",
+            "assets/project-till-tally.gif",
+            "assets/stack.gif",
+            "assets/contact.gif",
         ]
         for asset in assets:
             self.assertEqual(self.text.count(asset), 1, asset)
