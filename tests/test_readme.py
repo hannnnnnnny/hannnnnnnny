@@ -14,9 +14,6 @@ class ReadmeTests(unittest.TestCase):
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
             "assets/hero-split.gif",
-            "assets/project-kiwicue-hd.png",
-            "assets/project-pansub-hd.png",
-            "assets/project-till-tally-hd.png",
             "assets/stack.gif",
             "assets/contact.gif",
         ]
@@ -25,6 +22,9 @@ class ReadmeTests(unittest.TestCase):
 
     def test_identity_card_is_not_repeated_below_hero(self) -> None:
         self.assertNotIn("assets/identity.svg", self.text)
+
+    def test_project_showcase_is_removed(self) -> None:
+        self.assertNotIn("assets/project-", self.text)
 
     def test_local_images_exist_and_have_alt_text(self) -> None:
         images = re.findall(r"!\[([^\]]+)\]\(([^)]+)\)", self.text)
@@ -43,9 +43,6 @@ class ReadmeTests(unittest.TestCase):
 
     def test_approved_links_are_exact(self) -> None:
         links = [
-            "https://github.com/hannnnnnnny/kiwicue",
-            "https://github.com/hannnnnnnny/pansub",
-            "https://github.com/hannnnnnnny/till-tally",
             "https://hannnnnnnny.github.io/yi-han-software-engineer/",
             "https://www.linkedin.com/in/yi-han-29ab28323/",
             "mailto:harryhaber606@gmail.com",
