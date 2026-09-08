@@ -14,8 +14,6 @@ class ReadmeTests(unittest.TestCase):
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
             "assets/hero-split.gif",
-            "assets/stack.gif",
-            "assets/contact.gif",
         ]
         for asset in assets:
             self.assertEqual(self.text.count(asset), 1, asset)
@@ -25,6 +23,10 @@ class ReadmeTests(unittest.TestCase):
 
     def test_project_showcase_is_removed(self) -> None:
         self.assertNotIn("assets/project-", self.text)
+
+    def test_old_stack_and_contact_cards_are_removed(self) -> None:
+        self.assertNotIn("assets/stack.gif", self.text)
+        self.assertNotIn("assets/contact.gif", self.text)
 
     def test_local_images_exist_and_have_alt_text(self) -> None:
         images = re.findall(r"!\[([^\]]+)\]\(([^)]+)\)", self.text)
