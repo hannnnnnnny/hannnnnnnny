@@ -13,7 +13,7 @@ class ReadmeTests(unittest.TestCase):
 
     def test_approved_visual_assets_appear_once(self) -> None:
         assets = [
-            "assets/hero-minimal.gif",
+            "assets/hero-split.gif",
         ]
         for asset in assets:
             self.assertEqual(self.text.count(asset), 1, asset)
@@ -36,12 +36,12 @@ class ReadmeTests(unittest.TestCase):
             local_path = relative_path.split("?", 1)[0]
             self.assertTrue((ROOT / local_path).exists())
 
-    def test_minimal_hero_replaces_previous_designs(self) -> None:
+    def test_requested_split_hero_is_restored(self) -> None:
         self.assertIn(
-            "assets/hero-minimal.gif",
+            "assets/hero-split.gif?v=neural-motion-20260905",
             self.text,
         )
-        self.assertNotIn("assets/hero-split.gif", self.text)
+        self.assertNotIn("assets/hero-minimal.gif", self.text)
         self.assertNotIn("assets/hero-flow-motion.png", self.text)
 
     def test_approved_links_are_exact(self) -> None:

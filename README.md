@@ -1,4 +1,4 @@
-![Hi, I'm Yi Han. AI and automation, full-stack development. Building useful products and simplifying repetitive work. Auckland, New Zealand.](assets/hero-minimal.gif)
+![Hi, I'm Yi Han — AI automation engineer with animated neural signals.](assets/hero-split.gif?v=neural-motion-20260905)
 
 <p align="center">
   <a href="https://hannnnnnnny.github.io/yi-han-software-engineer/">Portfolio</a>
