@@ -1,4 +1,4 @@
-![Hi, I'm Yi Han — AI automation engineer with animated neural signals.](assets/hero-split.gif?v=neural-motion-20260905)
+![Hi, I'm Yi Han. AI and automation, Auckland, NZ. Turn friction into flow. I build AI-assisted products and reliable systems.](assets/hero-flow-motion.png)
 
 <p align="center">
   <a href="https://hannnnnnnny.github.io/yi-han-software-engineer/">Portfolio</a>
