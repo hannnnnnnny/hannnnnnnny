@@ -1,4 +1,4 @@
-![Hi, I'm Yi Han. AI and automation, Auckland, NZ. Turn friction into flow. I build AI-assisted products and reliable systems.](assets/hero-flow-motion.png)
+![Hi, I'm Yi Han. AI and automation, full-stack development. Building useful products and simplifying repetitive work. Auckland, New Zealand.](assets/hero-minimal.gif)
 
 <p align="center">
   <a href="https://hannnnnnnny.github.io/yi-han-software-engineer/">Portfolio</a>
