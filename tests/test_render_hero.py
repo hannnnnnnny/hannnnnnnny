@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageChops
 
 from scripts import render_hero
 from scripts.render_hero import DURATION_MS, FRAME_COUNT, make_frame, render_assets
@@ -51,6 +51,20 @@ class RenderHeroTests(unittest.TestCase):
         )
 
         self.assertGreater(violet_pixels, 2_000)
+
+    def test_published_gif_keeps_static_pixels_identical(self) -> None:
+        # The dithered static layer must not shimmer: only DYNAMIC_BOXES move.
+        path = Path(__file__).resolve().parents[1] / "assets" / "hero-split.gif"
+        with Image.open(path) as animation:
+            first = animation.convert("RGB")
+            mask = Image.new("L", first.size, 255)
+            for box in render_hero.DYNAMIC_BOXES:
+                mask.paste(0, box)
+            for index in (25, 50, 99):
+                animation.seek(index)
+                frame = animation.convert("RGB")
+                diff = ImageChops.difference(first, frame).convert("L")
+                self.assertIsNone(ImageChops.multiply(diff, mask).getbbox(), index)
 
     def test_rendered_assets_match_profile_constraints(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

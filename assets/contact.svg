@@ -14,9 +14,9 @@
     </linearGradient>
   </defs>
   <rect x="1" y="1" width="1278" height="124" rx="18"
-    fill="#080A0A" stroke="#29312F"/>
+    fill="#FBFCFB" stroke="#E3E8E6"/>
   <rect x="2" y="2" width="1276" height="122" rx="17"
     fill="url(#grid)" opacity=".72"/>
   <rect x="2" y="2" width="1276" height="3" rx="1.5" fill="url(#fade)"/>
-  <text x="38" y="55" fill="#F2F2EB" font-size="24" font-weight="750" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">Have an idea worth automating?</text><text x="38" y="87" fill="#84908A" font-size="12" font-weight="600" font-family="Consolas,monospace" text-anchor="start">BUILDING FROM AUCKLAND, NEW ZEALAND</text><rect x="1080" y="37" width="153" height="52" rx="26" fill="#7CF6CE"/><text x="1156" y="69" fill="#08100D" font-size="14" font-weight="800" font-family="Consolas,monospace" text-anchor="middle">LET&#x27;S TALK ↗</text>
+  <text x="38" y="55" fill="#0E1512" font-size="24" font-weight="750" font-family="Segoe UI,Arial,sans-serif" text-anchor="start">Have an idea worth automating?</text><text x="38" y="87" fill="#5E6B66" font-size="12" font-weight="600" font-family="Consolas,monospace" text-anchor="start">BUILDING FROM AUCKLAND, NEW ZEALAND</text><rect x="1080" y="37" width="153" height="52" rx="26" fill="#0A7C5C"/><text x="1156" y="69" fill="#FFFFFF" font-size="14" font-weight="800" font-family="Consolas,monospace" text-anchor="middle">LET&#x27;S TALK ↗</text>
 </svg>
