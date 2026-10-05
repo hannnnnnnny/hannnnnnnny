@@ -24,8 +24,8 @@ OUTPUTS = (
 
 PROJECTS = (
     ("project-kiwicue.svg", "01 / 03", "KiwiCue",
-     "Bilingual Auckland event discovery with smart reminders.",
-     "DISCOVERY · AUTOMATION · TYPESCRIPT", ("EVENT", "MATCH", "REMIND"), ACCENT),
+     "AI-powered Auckland event guide with bilingual voice search.",
+     "AI ASSISTANT · VOICE SEARCH · TYPESAFE JEV", ("VOICE", "JEV", "RANK"), ACCENT),
     ("project-pansub.svg", "02 / 03", "PanSub",
      "Real-time AI Chinese subtitles for lecture recordings.",
      "AI · ACCESSIBILITY · JAVASCRIPT", ("AUDIO", "AI", "SUBTITLE"), VIOLET),

@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
-VERSION = "?v=light-20261005"
+VERSION = "?v=light-20261005-2"
 
 # Published modules in reading order: hero, then three project cards.
 SEQUENCE = [
