@@ -37,7 +37,7 @@ class ReadmeTests(unittest.TestCase):
     def test_project_cards_link_to_their_destinations(self) -> None:
         destinations = {
             "assets/project-kiwicue-hd.png": "https://kiwicue.nz",
-            "assets/project-pansub-hd.png": "https://github.com/hannnnnnnny/pansub",
+            "assets/project-pansub-hd.png": "https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe",
             "assets/project-renova-hd.png": "https://renova-marketplace.vercel.app",
         }
         for asset, href in destinations.items():
@@ -68,9 +68,30 @@ class ReadmeTests(unittest.TestCase):
             "mailto:harryhaber606@gmail.com",
             "https://github.com/hannnnnnnny/kiwicue",
             "https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace",
+            "https://github.com/hannnnnnnny/pansub",
+            "https://github.com/hannnnnnnny",
         ]
         for link in links:
             self.assertIn(link, self.text)
+
+    def test_narrative_sections_appear_in_order(self) -> None:
+        headings = ["### What I'm building", "### What I believe", "### Find me"]
+        positions = [self.text.index(heading) for heading in headings]
+        self.assertEqual(positions, sorted(positions))
+
+    def test_each_project_is_introduced_before_its_card(self) -> None:
+        for title, asset in (("**KiwiCue", "project-kiwicue-hd.png"),
+                             ("**PanSub", "project-pansub-hd.png"),
+                             ("**ReNova", "project-renova-hd.png")):
+            self.assertLess(self.text.index(title), self.text.index(asset), title)
+
+    def test_principles_are_three_bold_statements(self) -> None:
+        section = self.text.split("### What I believe", 1)[1].split("###", 1)[0]
+        self.assertEqual(len(re.findall(r"^\*\*[^*]+\.\*\*", section, re.M)), 3)
+
+    def test_no_vanity_count_badges(self) -> None:
+        # Star/follower counters suit large accounts; here they would undersell.
+        self.assertNotIn("img.shields.io", self.text)
 
     def test_dashboard_clutter_is_absent(self) -> None:
         banned = ["github-readme-stats", "streak-stats", "visitor-badge"]
