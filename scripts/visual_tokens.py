@@ -2,15 +2,39 @@ from __future__ import annotations
 
 from html import escape
 
+from PIL import ImageColor
+
 WIDTH = 1280
-BG = "#080A0A"
-SURFACE = "#0D1110"
-BORDER = "#29312F"
-TEXT = "#F2F2EB"
-MUTED = "#84908A"
+
+# Light theme: the single source of colour for every published renderer.
+# Text-bearing colours (TEXT, MUTED, ACCENT, VIOLET, CORAL) keep WCAG AA
+# (>= 4.5:1) on BG and SURFACE; MINT and SIGNAL are decorative only.
+BG = "#FBFCFB"
+SURFACE = "#FFFFFF"
+PANEL = "#F3F6F5"
+BORDER = "#E3E8E6"
+HAIRLINE = "#ECF1EF"
+CARD_EDGE = "#BFDDD2"
+DOT = "#C9D3CF"
+TEXT = "#0E1512"
+MUTED = "#5E6B66"
+ACCENT = "#0A7C5C"
+ON_ACCENT = "#FFFFFF"
 MINT = "#7CF6CE"
-VIOLET = "#9F91FF"
-CORAL = "#FF7054"
+SIGNAL = "#12B886"
+VIOLET = "#6C5CE7"
+CORAL = "#C2410C"
+SHADOW = "#0E1512"
+
+
+def rgb(color: str) -> tuple[int, int, int]:
+    return ImageColor.getrgb(color)[:3]
+
+
+def mix(first: str, second: str, amount: float) -> tuple[int, int, int]:
+    """Blend `first` toward `second`; amount 0 keeps first, 1 returns second."""
+    a, b = rgb(first), rgb(second)
+    return tuple(round(x + (y - x) * amount) for x, y in zip(a, b))
 
 
 def svg_document(

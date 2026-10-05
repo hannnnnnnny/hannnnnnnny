@@ -11,7 +11,7 @@ ASSETS = Path(__file__).resolve().parents[1] / "assets"
 class AnimatedSectionTests(unittest.TestCase):
     def test_animations_keep_copy_stable_and_corners_transparent(self):
         for name, height in (("project-kiwicue", 460), ("project-pansub", 460),
-                             ("project-till-tally", 460), ("stack", 290),
+                             ("project-renova", 460), ("stack", 290),
                              ("contact", 220)):
             with self.subTest(name=name), Image.open(ASSETS / f"{name}.gif") as gif:
                 self.assertEqual(gif.size, (960, height))

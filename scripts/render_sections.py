@@ -4,12 +4,12 @@ from pathlib import Path
 
 if __package__:
     from .visual_tokens import (
-        BORDER, CORAL, MINT, MUTED, SURFACE, TEXT, VIOLET,
+        ACCENT, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
         pill, svg_document, text,
     )
 else:
     from visual_tokens import (
-        BORDER, CORAL, MINT, MUTED, SURFACE, TEXT, VIOLET,
+        ACCENT, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
         pill, svg_document, text,
     )
 
@@ -17,7 +17,7 @@ OUTPUTS = (
     "identity.svg",
     "project-kiwicue.svg",
     "project-pansub.svg",
-    "project-till-tally.svg",
+    "project-renova.svg",
     "stack.svg",
     "contact.svg",
 )
@@ -25,13 +25,13 @@ OUTPUTS = (
 PROJECTS = (
     ("project-kiwicue.svg", "01 / 03", "KiwiCue",
      "Bilingual Auckland event discovery with smart reminders.",
-     "DISCOVERY · AUTOMATION · TYPESCRIPT", ("EVENT", "MATCH", "REMIND"), MINT),
+     "DISCOVERY · AUTOMATION · TYPESCRIPT", ("EVENT", "MATCH", "REMIND"), ACCENT),
     ("project-pansub.svg", "02 / 03", "PanSub",
      "Real-time AI Chinese subtitles for lecture recordings.",
      "AI · ACCESSIBILITY · JAVASCRIPT", ("AUDIO", "AI", "SUBTITLE"), VIOLET),
-    ("project-till-tally.svg", "03 / 03", "Till Tally",
-     "Retail analytics that turns sales data into useful decisions.",
-     "DATA · INTELLIGENCE · TYPESCRIPT", ("SALES", "SIGNAL", "DECIDE"), CORAL),
+    ("project-renova.svg", "03 / 03", "ReNova",
+     "Second-hand marketplace with listings, offers, orders and reviews.",
+     "FULL-STACK · MARKETPLACE · VUE", ("LIST", "OFFER", "ORDER"), CORAL),
 )
 
 
@@ -40,10 +40,10 @@ def identity_svg() -> str:
         f'<line x1="330" y1="1" x2="330" y2="188" stroke="{BORDER}"/>'
         + text(42, 48, "PROFILE / 001", 13, MUTED, 600, "Consolas,monospace")
         + text(42, 101, "Yi Han.", 43, TEXT, 800)
-        + text(42, 135, "FULL-STACK × AI", 14, MINT, 600, "Consolas,monospace")
+        + text(42, 135, "FULL-STACK × AI", 14, ACCENT, 600, "Consolas,monospace")
         + text(372, 67, "I design and build AI-assisted products that turn repetitive", 21)
         + text(372, 99, "workflows into reliable systems people can actually use.", 21)
-        + pill(372, 126, 120, "PORTFOLIO ↗", MINT)
+        + pill(372, 126, 120, "PORTFOLIO ↗", ACCENT)
         + pill(506, 126, 112, "LINKEDIN ↗", TEXT)
         + pill(632, 126, 91, "EMAIL ↗", TEXT)
     )
@@ -92,7 +92,7 @@ def stack_svg() -> str:
     x = 328
     for index, name in enumerate(names):
         width = 50 + len(name) * 7
-        parts.append(pill(x, 46, width, name, MINT if index % 3 == 0 else TEXT))
+        parts.append(pill(x, 46, width, name, ACCENT if index % 3 == 0 else TEXT))
         x += width + 10
     return svg_document("Technology stack", ", ".join(names), 128, "".join(parts))
 
@@ -102,8 +102,8 @@ def contact_svg() -> str:
         text(38, 55, "Have an idea worth automating?", 24, TEXT, 750)
         + text(38, 87, "BUILDING FROM AUCKLAND, NEW ZEALAND",
                12, MUTED, 600, "Consolas,monospace")
-        + f'<rect x="1080" y="37" width="153" height="52" rx="26" fill="{MINT}"/>'
-        + text(1156, 69, "LET'S TALK ↗", 14, "#08100D", 800,
+        + f'<rect x="1080" y="37" width="153" height="52" rx="26" fill="{ACCENT}"/>'
+        + text(1156, 69, "LET'S TALK ↗", 14, ON_ACCENT, 800,
                "Consolas,monospace", "middle")
     )
     return svg_document(

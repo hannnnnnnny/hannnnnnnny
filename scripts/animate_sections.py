@@ -2,14 +2,18 @@
 from pathlib import Path
 from math import sin, pi
 
-from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 if __package__:
     from .render_sections import PROJECTS
-    from .visual_tokens import BG, BORDER, SURFACE, TEXT, MUTED, MINT
+    from .visual_tokens import (
+        ACCENT, BG, BORDER, DOT, MUTED, ON_ACCENT, PANEL, SURFACE, TEXT, mix, rgb,
+    )
 else:
     from render_sections import PROJECTS
-    from visual_tokens import BG, BORDER, SURFACE, TEXT, MUTED, MINT
+    from visual_tokens import (
+        ACCENT, BG, BORDER, DOT, MUTED, ON_ACCENT, PANEL, SURFACE, TEXT, mix, rgb,
+    )
 
 FRAMES = 60
 WIDTH = 960
@@ -28,7 +32,8 @@ def card(height, accent):
     draw.rounded_rectangle((1, 1, WIDTH-2, height-2), 26, fill=BG, outline=BORDER)
     grid = Image.new("RGBA", image.size)
     gd = ImageDraw.Draw(grid)
-    color = ImageColor.getrgb(accent) + (4,)
+    # A faint accent grid; on white it needs more alpha than on black to register.
+    color = rgb(accent) + (14,)
     for x in range(48, WIDTH-24, 48):
         gd.line((x, 26, x, height-26), fill=color)
     for y in range(48, height-24, 48):
@@ -39,11 +44,10 @@ def card(height, accent):
 
 def edge(draw, frame, accent, height):
     x = 28 + int(frame / FRAMES * (WIDTH-56))
-    rgb = ImageColor.getrgb(accent)
+    # The comet tail fades into the page background, not toward black.
     for offset in range(50):
-        shade = tuple(int(v * (1-offset/50)) for v in rgb)
         if x-offset >= 28:
-            draw.point((x-offset, 2), fill=shade)
+            draw.point((x-offset, 2), fill=mix(accent, BG, offset/50))
 
 
 def project_frame(project, frame):
@@ -54,7 +58,7 @@ def project_frame(project, frame):
     label(draw, (32, 113), name, 40, bold=True)
     lines = wrap_description(draw, description, width=300, size=26)
     for index, line in enumerate(lines):
-        label(draw, (32, 165+index*35), line, 26, "#BCC8C2")
+        label(draw, (32, 165+index*35), line, 26, MUTED)
     for index, tag in enumerate(metadata.split(" · ")):
         label(draw, (32, 325+index*25), tag, 17, accent, mono=True)
     label(draw, (32, 423), "VIEW PROJECT  /", 19, TEXT, mono=True)
@@ -69,12 +73,16 @@ def add_preview(image, filename, accent):
     with Image.open(path) as source:
         preview = ImageOps.contain(source.convert("RGB"), (550, 354), Image.Resampling.LANCZOS)
     draw = ImageDraw.Draw(image)
-    draw.rounded_rectangle((374, 30, 934, 430), 18, fill="#151B1D", outline=BORDER)
+    draw.rounded_rectangle((374, 30, 934, 430), 18, fill=PANEL, outline=BORDER)
     for x in (391, 405, 419):
-        draw.ellipse((x, 47, x+6, 53), fill=accent if x == 391 else "#52625C")
-    label(draw, (916, 55), "PRODUCT PREVIEW", 13, "#BCC8C2", mono=True, anchor="rs")
+        draw.ellipse((x, 47, x+6, 53), fill=accent if x == 391 else DOT)
+    label(draw, (916, 55), "PRODUCT PREVIEW", 13, MUTED, mono=True, anchor="rs")
     # Contain rather than crop: retain subtitles and dashboard labels in full.
-    image.paste(preview, (379+(550-preview.width)//2, 67+(354-preview.height)//2))
+    left = 379 + (550-preview.width)//2
+    top = 67 + (354-preview.height)//2
+    image.paste(preview, (left, top))
+    # Light screenshots need a hairline to separate them from the light frame.
+    draw.rectangle((left-1, top-1, left+preview.width, top+preview.height), outline=BORDER)
 
 
 def wrap_description(draw, description, width=780, size=28):
@@ -91,10 +99,10 @@ def wrap_description(draw, description, width=780, size=28):
 
 
 def stack_frame(frame):
-    image = card(290, MINT)
+    image = card(290, ACCENT)
     draw = ImageDraw.Draw(image)
     label(draw, (40, 63), "Focused tools.", 36, bold=True)
-    label(draw, (40, 98), "The stack behind the systems.", 23, "#BCC8C2")
+    label(draw, (40, 98), "The stack behind the systems.", 23, MUTED)
     names = ("TypeScript", "JavaScript", "Java", "Spring Boot",
              "Vue", "MySQL", "AI APIs", "Automation")
     for i, name in enumerate(names):
@@ -102,25 +110,25 @@ def stack_frame(frame):
         y = 127 + (i // 4)*75
         active = int(frame / FRAMES * len(names)) == i
         draw.rounded_rectangle((x, y, x+205, y+56), 18, fill=SURFACE,
-                               outline=MINT if active else BORDER, width=2 if active else 1)
-        label(draw, (x+102, y+36), name, 22, MINT if active else TEXT,
+                               outline=ACCENT if active else BORDER, width=2 if active else 1)
+        label(draw, (x+102, y+36), name, 22, ACCENT if active else TEXT,
               mono=True, anchor="ms")
-    edge(draw, frame, MINT, 290)
+    edge(draw, frame, ACCENT, 290)
     return image
 
 
 def contact_frame(frame):
-    image = card(220, MINT)
+    image = card(220, ACCENT)
     draw = ImageDraw.Draw(image)
     label(draw, (40, 63), "Have an idea worth automating?", 36, bold=True)
-    label(draw, (40, 108), "Let's build something useful.", 25, "#BCC8C2")
-    label(draw, (40, 176), "AUCKLAND, NEW ZEALAND", 19, "#BCC8C2", mono=True)
+    label(draw, (40, 108), "Let's build something useful.", 25, MUTED)
+    label(draw, (40, 176), "AUCKLAND, NEW ZEALAND", 19, MUTED, mono=True)
     pulse = (1+sin(frame / FRAMES * 2*pi))/2
-    outline = tuple(int(v*(.4+.5*pulse)) for v in ImageColor.getrgb(MINT))
-    draw.rounded_rectangle((695, 129, 925, 197), 28, outline=outline, width=2)
-    draw.rounded_rectangle((700, 134, 920, 192), 24, fill=MINT)
-    label(draw, (810, 172), "LET'S TALK", 24, "#08100D", mono=True, anchor="ms")
-    edge(draw, frame, MINT, 220)
+    draw.rounded_rectangle((695, 129, 925, 197), 28,
+                           outline=mix(ACCENT, BG, .7 - .55*pulse), width=2)
+    draw.rounded_rectangle((700, 134, 920, 192), 24, fill=ACCENT)
+    label(draw, (810, 172), "LET'S TALK", 24, ON_ACCENT, mono=True, anchor="ms")
+    edge(draw, frame, ACCENT, 220)
     return image
 
 
