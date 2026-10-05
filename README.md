@@ -19,7 +19,3 @@
 [![ReNova — second-hand marketplace with listings, offers, orders and reviews. Live screenshot of the deployed storefront.](assets/project-renova-hd.png?v=light-20261005)](https://renova-marketplace.vercel.app)
 
 <p align="center"><a href="https://renova-marketplace.vercel.app">Live site</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace">Source</a></p>
-
-![Focused tools: TypeScript, JavaScript, Java, Spring Boot, Vue, MySQL, AI APIs and Automation.](assets/stack.gif?v=light-20261005)
-
-[![Have an idea worth automating? Let's talk — email Yi Han.](assets/contact.gif?v=light-20261005)](mailto:harryhaber606@gmail.com)
