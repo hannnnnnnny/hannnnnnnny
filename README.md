@@ -1,6 +1,6 @@
 ![Hi, I'm Yi Han — AI automation engineer. Light hero with animated teal and violet signals: turn friction into flow.](assets/hero-split.gif?v=light-20261005-2)
 
-I'm a Master of IT student in Auckland with a Business Analytics background. I build AI-assisted products end to end, and I ship them: all three projects below are live, and one is on the Chrome Web Store.
+I'm a developer in Auckland with a Business Analytics background. I build AI-assisted products end to end, and I ship them: all three projects below are live, and one is on the Chrome Web Store.
 
 ---
 
