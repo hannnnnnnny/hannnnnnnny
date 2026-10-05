@@ -7,14 +7,12 @@ ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 VERSION = "?v=light-20261005"
 
-# Published modules in reading order: hero, three project cards, stack, contact.
+# Published modules in reading order: hero, then three project cards.
 SEQUENCE = [
     "assets/hero-split.gif",
     "assets/project-kiwicue-hd.png",
     "assets/project-pansub-hd.png",
     "assets/project-renova-hd.png",
-    "assets/stack.gif",
-    "assets/contact.gif",
 ]
 
 
@@ -46,9 +44,9 @@ class ReadmeTests(unittest.TestCase):
             pattern = rf"\[!\[[^\]]+\]\({re.escape(asset)}[^)]*\)\]\({re.escape(href)}\)"
             self.assertRegex(self.text, pattern, asset)
 
-    def test_contact_card_links_to_email(self) -> None:
-        pattern = r"\[!\[[^\]]+\]\(assets/contact\.gif[^)]*\)\]\(mailto:harryhaber606@gmail\.com\)"
-        self.assertRegex(self.text, pattern)
+    def test_stack_and_contact_cards_are_removed(self) -> None:
+        self.assertNotIn("assets/stack.gif", self.text)
+        self.assertNotIn("assets/contact.gif", self.text)
 
     def test_local_images_exist_and_have_alt_text(self) -> None:
         images = re.findall(r"!\[([^\]]+)\]\(([^)]+)\)", self.text)
