@@ -18,6 +18,7 @@ PUBLISHED_RENDERERS = (
 PUBLISHED_RASTERS = (
     "hero-split-static.png",
     "project-kiwicue-hd.png",
+    "project-guardrun-hd.png",
     "project-pansub-hd.png",
     "project-renova-hd.png",
     "stack.gif",
@@ -46,7 +47,7 @@ class LightThemeTests(unittest.TestCase):
             self.assertGreater(luminance(getattr(tokens, name)), 0.85, name)
 
     def test_text_tokens_meet_wcag_aa_on_light_surfaces(self) -> None:
-        for name in ("TEXT", "MUTED", "ACCENT", "VIOLET", "CORAL"):
+        for name in ("TEXT", "MUTED", "ACCENT", "BLUE", "VIOLET", "CORAL"):
             for surface in ("BG", "SURFACE"):
                 ratio = contrast(getattr(tokens, name), getattr(tokens, surface))
                 self.assertGreaterEqual(ratio, 4.5, f"{name} on {surface}: {ratio:.2f}")
