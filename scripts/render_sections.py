@@ -4,12 +4,12 @@ from pathlib import Path
 
 if __package__:
     from .visual_tokens import (
-        ACCENT, BLUE, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
+        ACCENT, BLUE, BORDER, CORAL, EMBER, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
         pill, svg_document, text,
     )
 else:
     from visual_tokens import (
-        ACCENT, BLUE, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
+        ACCENT, BLUE, BORDER, CORAL, EMBER, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
         pill, svg_document, text,
     )
 
@@ -19,23 +19,27 @@ OUTPUTS = (
     "project-guardrun.svg",
     "project-pansub.svg",
     "project-renova.svg",
+    "project-ashen-depths.svg",
     "stack.svg",
     "contact.svg",
 )
 
 PROJECTS = (
-    ("project-kiwicue.svg", "01 / 04", "KiwiCue",
+    ("project-kiwicue.svg", "01 / 05", "KiwiCue",
      "AI-powered Auckland event guide with bilingual voice search.",
      "AI ASSISTANT · VOICE SEARCH · TYPESAFE JEV", ("VOICE", "JEV", "RANK"), ACCENT),
-    ("project-guardrun.svg", "02 / 04", "GuardRun",
+    ("project-guardrun.svg", "02 / 05", "GuardRun",
      "Safety-first AI agent harness for DeepSeek and Claude.",
      "AI AGENT · SAFETY POLICY · PYTHON", ("TOOLS", "POLICY", "AUDIT"), BLUE),
-    ("project-pansub.svg", "03 / 04", "PanSub",
+    ("project-pansub.svg", "03 / 05", "PanSub",
      "Real-time AI Chinese subtitles for lecture recordings.",
      "AI · ACCESSIBILITY · JAVASCRIPT", ("AUDIO", "AI", "SUBTITLE"), VIOLET),
-    ("project-renova.svg", "04 / 04", "ReNova",
+    ("project-renova.svg", "04 / 05", "ReNova",
      "Second-hand marketplace with listings, offers, orders and reviews.",
      "FULL-STACK · MARKETPLACE · VUE", ("LIST", "OFFER", "ORDER"), CORAL),
+    ("project-ashen-depths.svg", "05 / 05", "Ashen Depths",
+     "Diablo-like pixel ARPG for Windows and a graphing calculator.",
+     "GAME · C99 · TI-NSPIRE CX", ("DUNGEON", "LOOT", "BUILD"), EMBER),
 )
 
 

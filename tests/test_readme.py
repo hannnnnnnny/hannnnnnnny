@@ -5,15 +5,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
-VERSION = "?v=light-20261012"
+VERSION = "?v=light-20261012-2"
 
-# Published modules in reading order: hero, then four project cards.
+# Published modules in reading order: hero, then five project cards.
 SEQUENCE = [
     "assets/hero-split.gif",
     "assets/project-kiwicue-hd.png",
     "assets/project-guardrun-hd.png",
     "assets/project-pansub-hd.png",
     "assets/project-renova-hd.png",
+    "assets/project-ashen-depths-hd.png",
 ]
 
 
@@ -41,6 +42,7 @@ class ReadmeTests(unittest.TestCase):
             "assets/project-guardrun-hd.png": "https://github.com/hannnnnnnny/GuardRun",
             "assets/project-pansub-hd.png": "https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe",
             "assets/project-renova-hd.png": "https://renova-marketplace.vercel.app",
+            "assets/project-ashen-depths-hd.png": "https://github.com/hannnnnnnny/ARPG-CX/releases/latest",
         }
         for asset, href in destinations.items():
             pattern = rf"\[!\[[^\]]+\]\({re.escape(asset)}[^)]*\)\]\({re.escape(href)}\)"
@@ -72,6 +74,7 @@ class ReadmeTests(unittest.TestCase):
             "https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace",
             "https://github.com/hannnnnnnny/pansub",
             "https://github.com/hannnnnnnny/GuardRun",
+            "https://github.com/hannnnnnnny/ARPG-CX",
             "https://github.com/hannnnnnnny",
         ]
         for link in links:
@@ -86,7 +89,8 @@ class ReadmeTests(unittest.TestCase):
         for title, asset in (("**KiwiCue", "project-kiwicue-hd.png"),
                              ("**GuardRun", "project-guardrun-hd.png"),
                              ("**PanSub", "project-pansub-hd.png"),
-                             ("**ReNova", "project-renova-hd.png")):
+                             ("**ReNova", "project-renova-hd.png"),
+                             ("**Ashen Depths", "project-ashen-depths-hd.png")):
             self.assertLess(self.text.index(title), self.text.index(asset), title)
 
     def test_principles_are_three_bold_statements(self) -> None:
