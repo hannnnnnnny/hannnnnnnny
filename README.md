@@ -1,6 +1,6 @@
-![Hi, I'm Harry Han — AI automation engineer. Light hero with animated teal and violet signals: turn friction into flow.](assets/hero-split.gif?v=light-20261005-2)
+![Hi, I'm Harry Han — AI automation engineer. Light hero with animated teal and violet signals: turn friction into flow.](assets/hero-split.gif?v=light-20261012)
 
-I'm a developer in Auckland with a Business Analytics background. I build AI-assisted products end to end, and I ship them: all three projects below are live, and one is on the Chrome Web Store.
+I'm a developer in Auckland with a Business Analytics background. I build AI-assisted products end to end, and I ship them: every project below has something you can open or run today, and one is on the Chrome Web Store.
 
 ---
 
@@ -10,15 +10,23 @@ I'm a developer in Auckland with a Business Analytics background. I build AI-ass
 
 Events, markets and movies across Auckland in one bilingual guide (English / 中文). Ask Kiwi out loud — *"something free for the kids this Saturday"* — and it works out what you mean: the TypeSafe Jev model turns the request into filters and ranks the results, DeepSeek answers in conversation, and voice input runs on the browser's own speech recognition. Cinema sessions come straight from HOYTS and EVENT Cinemas, and every recommendation says *why* it was picked.
 
-[![KiwiCue — AI-powered Auckland event guide with bilingual voice search, using the TypeSafe Jev model. Live screenshot of kiwicue.nz.](assets/project-kiwicue-hd.png?v=light-20261005-2)](https://kiwicue.nz)
+[![KiwiCue — AI-powered Auckland event guide with bilingual voice search, using the TypeSafe Jev model. Live screenshot of kiwicue.nz.](assets/project-kiwicue-hd.png?v=light-20261012)](https://kiwicue.nz)
 
 <p align="center"><a href="https://kiwicue.nz">Live site</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/kiwicue">Source</a></p>
+
+**GuardRun · An AI coding agent with guardrails**
+
+Give DeepSeek or Claude real tools — read and edit files, search the code, run shell commands — without handing over your machine. Every tool call passes a safety gate first: a path sandbox that keeps the agent inside one workspace, a shell policy that sorts commands into allow, ask and block, approval prompts for anything risky, secret redaction, prompt-injection flagging, budgets and an audit log. Written in Python, with over a thousand tests on Windows, macOS and Linux.
+
+[![GuardRun — safety-first AI agent harness for DeepSeek and Claude. Real terminal output: a .env read is blocked, a shell command waits for approval, and risky commands are classified ASK or BLOCK.](assets/project-guardrun-hd.png?v=light-20261012)](https://github.com/hannnnnnnny/GuardRun)
+
+<p align="center"><a href="https://github.com/hannnnnnnny/GuardRun">Source</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/GuardRun/blob/main/docs/security-model.md">Security model</a></p>
 
 **PanSub · Translated subtitles for lecture recordings**
 
 A Chrome extension that overlays translated subtitles on Panopto lectures without replacing the player. It reads Panopto's own captions first; when a recording has none, Audio Mode recognises English on-device and never saves the audio. Bilingual, translation-only or original-only display, plus an academic glossary for business, IT, science and law. No account, no backend, no analytics.
 
-[![PanSub — real-time AI Chinese subtitles for lecture recordings. Screenshot of the Chrome extension on a demo lecture.](assets/project-pansub-hd.png?v=light-20261005-2)](https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe)
+[![PanSub — real-time AI Chinese subtitles for lecture recordings. Screenshot of the Chrome extension on a demo lecture.](assets/project-pansub-hd.png?v=light-20261012)](https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe)
 
 <p align="center"><a href="https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe">Chrome Web Store</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/pansub">Source</a></p>
 
@@ -26,7 +34,7 @@ A Chrome extension that overlays translated subtitles on Panopto lectures withou
 
 Listings, private chat, price negotiation, orders and two-way reviews in one bilingual app. The hard part isn't showing products; it's enforcing who can act, and when. Offers and orders are explicit state machines in the Spring Boot API, so an invalid move is rejected by the backend instead of merely hidden in the UI. Vue 3 front end, Spring Security with JWT, MySQL underneath.
 
-[![ReNova — second-hand marketplace with listings, offers, orders and reviews. Live screenshot of the deployed storefront.](assets/project-renova-hd.png?v=light-20261005-2)](https://renova-marketplace.vercel.app)
+[![ReNova — second-hand marketplace with listings, offers, orders and reviews. Live screenshot of the deployed storefront.](assets/project-renova-hd.png?v=light-20261012)](https://renova-marketplace.vercel.app)
 
 <p align="center"><a href="https://renova-marketplace.vercel.app">Live site</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace">Source</a></p>
 

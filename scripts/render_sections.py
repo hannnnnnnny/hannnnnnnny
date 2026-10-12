@@ -4,18 +4,19 @@ from pathlib import Path
 
 if __package__:
     from .visual_tokens import (
-        ACCENT, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
+        ACCENT, BLUE, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
         pill, svg_document, text,
     )
 else:
     from visual_tokens import (
-        ACCENT, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
+        ACCENT, BLUE, BORDER, CORAL, MUTED, ON_ACCENT, SURFACE, TEXT, VIOLET,
         pill, svg_document, text,
     )
 
 OUTPUTS = (
     "identity.svg",
     "project-kiwicue.svg",
+    "project-guardrun.svg",
     "project-pansub.svg",
     "project-renova.svg",
     "stack.svg",
@@ -23,13 +24,16 @@ OUTPUTS = (
 )
 
 PROJECTS = (
-    ("project-kiwicue.svg", "01 / 03", "KiwiCue",
+    ("project-kiwicue.svg", "01 / 04", "KiwiCue",
      "AI-powered Auckland event guide with bilingual voice search.",
      "AI ASSISTANT · VOICE SEARCH · TYPESAFE JEV", ("VOICE", "JEV", "RANK"), ACCENT),
-    ("project-pansub.svg", "02 / 03", "PanSub",
+    ("project-guardrun.svg", "02 / 04", "GuardRun",
+     "Safety-first AI agent harness for DeepSeek and Claude.",
+     "AI AGENT · SAFETY POLICY · PYTHON", ("TOOLS", "POLICY", "AUDIT"), BLUE),
+    ("project-pansub.svg", "03 / 04", "PanSub",
      "Real-time AI Chinese subtitles for lecture recordings.",
      "AI · ACCESSIBILITY · JAVASCRIPT", ("AUDIO", "AI", "SUBTITLE"), VIOLET),
-    ("project-renova.svg", "03 / 03", "ReNova",
+    ("project-renova.svg", "04 / 04", "ReNova",
      "Second-hand marketplace with listings, offers, orders and reviews.",
      "FULL-STACK · MARKETPLACE · VUE", ("LIST", "OFFER", "ORDER"), CORAL),
 )

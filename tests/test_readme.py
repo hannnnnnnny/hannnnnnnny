@@ -5,12 +5,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
-VERSION = "?v=light-20261005-2"
+VERSION = "?v=light-20261012"
 
-# Published modules in reading order: hero, then three project cards.
+# Published modules in reading order: hero, then four project cards.
 SEQUENCE = [
     "assets/hero-split.gif",
     "assets/project-kiwicue-hd.png",
+    "assets/project-guardrun-hd.png",
     "assets/project-pansub-hd.png",
     "assets/project-renova-hd.png",
 ]
@@ -37,6 +38,7 @@ class ReadmeTests(unittest.TestCase):
     def test_project_cards_link_to_their_destinations(self) -> None:
         destinations = {
             "assets/project-kiwicue-hd.png": "https://kiwicue.nz",
+            "assets/project-guardrun-hd.png": "https://github.com/hannnnnnnny/GuardRun",
             "assets/project-pansub-hd.png": "https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe",
             "assets/project-renova-hd.png": "https://renova-marketplace.vercel.app",
         }
@@ -69,6 +71,7 @@ class ReadmeTests(unittest.TestCase):
             "https://github.com/hannnnnnnny/kiwicue",
             "https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace",
             "https://github.com/hannnnnnnny/pansub",
+            "https://github.com/hannnnnnnny/GuardRun",
             "https://github.com/hannnnnnnny",
         ]
         for link in links:
@@ -81,6 +84,7 @@ class ReadmeTests(unittest.TestCase):
 
     def test_each_project_is_introduced_before_its_card(self) -> None:
         for title, asset in (("**KiwiCue", "project-kiwicue-hd.png"),
+                             ("**GuardRun", "project-guardrun-hd.png"),
                              ("**PanSub", "project-pansub-hd.png"),
                              ("**ReNova", "project-renova-hd.png")):
             self.assertLess(self.text.index(title), self.text.index(asset), title)
