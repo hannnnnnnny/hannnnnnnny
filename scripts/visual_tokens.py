@@ -7,7 +7,7 @@ from PIL import ImageColor
 WIDTH = 1280
 
 # Light theme: the single source of colour for every published renderer.
-# Text-bearing colours (TEXT, MUTED, ACCENT, BLUE, VIOLET, CORAL) keep WCAG AA
+# Text-bearing colours (TEXT, MUTED, ACCENT, BLUE, VIOLET, CORAL, EMBER) keep WCAG AA
 # (>= 4.5:1) on BG and SURFACE; MINT and SIGNAL are decorative only.
 BG = "#FBFCFB"
 SURFACE = "#FFFFFF"
@@ -25,6 +25,7 @@ MINT = "#7CF6CE"
 SIGNAL = "#12B886"
 VIOLET = "#6C5CE7"
 CORAL = "#C2410C"
+EMBER = "#A16207"
 SHADOW = "#0E1512"
 
 
