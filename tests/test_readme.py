@@ -10,11 +10,11 @@ VERSION = "?v=light-20261012-2"
 # Published modules in reading order: hero, then five project cards.
 SEQUENCE = [
     "assets/hero-split.gif",
-    "assets/project-kiwicue-hd.png",
-    "assets/project-guardrun-hd.png",
-    "assets/project-pansub-hd.png",
-    "assets/project-renova-hd.png",
-    "assets/project-ashen-depths-hd.png",
+    "assets/demos/kiwicue-cursor.gif",
+    "assets/demos/guardrun-cursor.gif",
+    "assets/demos/pansub-cursor.gif",
+    "assets/demos/renova-cursor.gif",
+    "assets/demos/ashen-depths-cursor.gif",
 ]
 
 
@@ -26,7 +26,8 @@ class ReadmeTests(unittest.TestCase):
         positions = []
         for asset in SEQUENCE:
             self.assertEqual(self.text.count(asset), 1, asset)
-            self.assertIn(asset + VERSION, self.text, asset)
+            version = VERSION if asset.endswith('hero-split.gif') else '?v=20261016'
+            self.assertIn(asset + version, self.text, asset)
             positions.append(self.text.index(asset))
         self.assertEqual(positions, sorted(positions))
 
@@ -38,11 +39,11 @@ class ReadmeTests(unittest.TestCase):
 
     def test_project_cards_link_to_their_destinations(self) -> None:
         destinations = {
-            "assets/project-kiwicue-hd.png": "https://kiwicue.nz",
-            "assets/project-guardrun-hd.png": "https://github.com/hannnnnnnny/GuardRun",
-            "assets/project-pansub-hd.png": "https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe",
-            "assets/project-renova-hd.png": "https://renova-marketplace.vercel.app",
-            "assets/project-ashen-depths-hd.png": "https://github.com/hannnnnnnny/ARPG-CX/releases/latest",
+            "assets/demos/kiwicue-cursor.gif": "https://kiwicue.nz",
+            "assets/demos/guardrun-cursor.gif": "https://github.com/hannnnnnnny/GuardRun",
+            "assets/demos/pansub-cursor.gif": "https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe",
+            "assets/demos/renova-cursor.gif": "https://renova-marketplace.vercel.app",
+            "assets/demos/ashen-depths-cursor.gif": "https://github.com/hannnnnnnny/ARPG-CX/releases/latest",
         }
         for asset, href in destinations.items():
             pattern = rf"\[!\[[^\]]+\]\({re.escape(asset)}[^)]*\)\]\({re.escape(href)}\)"
@@ -86,11 +87,11 @@ class ReadmeTests(unittest.TestCase):
         self.assertEqual(positions, sorted(positions))
 
     def test_each_project_is_introduced_before_its_card(self) -> None:
-        for title, asset in (("**KiwiCue", "project-kiwicue-hd.png"),
-                             ("**GuardRun", "project-guardrun-hd.png"),
-                             ("**PanSub", "project-pansub-hd.png"),
-                             ("**ReNova", "project-renova-hd.png"),
-                             ("**Ashen Depths", "project-ashen-depths-hd.png")):
+        for title, asset in (("**KiwiCue", "demos/kiwicue-cursor.gif"),
+                             ("**GuardRun", "demos/guardrun-cursor.gif"),
+                             ("**PanSub", "demos/pansub-cursor.gif"),
+                             ("**ReNova", "demos/renova-cursor.gif"),
+                             ("**Ashen Depths", "demos/ashen-depths-cursor.gif")):
             self.assertLess(self.text.index(title), self.text.index(asset), title)
 
     def test_principles_are_three_bold_statements(self) -> None:

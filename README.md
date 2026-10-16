@@ -1,6 +1,32 @@
 ![Hi, I'm Harry Han — AI automation engineer. Light hero with animated teal and violet signals: turn friction into flow.](assets/hero-split.gif?v=light-20261012-2)
 
-I'm a developer in Auckland with a Business Analytics background. I build AI-assisted products end to end, and I ship them: every project below has something you can open or run today, and one is on the Chrome Web Store.
+<p align="center">
+  <a href="https://hannnnnnnny.github.io/yi-han-software-engineer/">Portfolio ↗</a> &nbsp;·&nbsp;
+  <a href="https://www.linkedin.com/in/yi-han-29ab28323/">LinkedIn ↗</a> &nbsp;·&nbsp;
+  <a href="mailto:harryhaber606@gmail.com">Email ↗</a>
+</p>
+
+### About me
+
+I'm **Harry Han**, a developer in **Auckland, New Zealand**, with a Business Analytics background. I build full-stack applications, AI-assisted products and practical automation.
+
+- **AI with a purpose:** turn everyday friction into useful workflows.
+- **End to end:** interface, API, data, testing and delivery.
+- **Built to try:** live apps, an extension on the Chrome Web Store, open-source tools and a downloadable game.
+
+### Tech stack
+
+**AI & automation** · TypeSafe Jev · DeepSeek · Claude · AI APIs · Workflow automation
+
+**Languages** · Python · TypeScript · JavaScript · Java · C · SQL
+
+**Frontend** · React · Next.js · Vue · Svelte · HTML · CSS · Vite · Tailwind CSS
+
+**Backend & data** · Spring Boot · Node.js · Express · REST APIs · PostgreSQL · MySQL · MongoDB · SQLite · Prisma
+
+**Cloud & delivery** · Azure · AWS · Docker · Vercel · Git · GitHub Actions
+
+**Testing** · Playwright · Unit & integration tests · End-to-end testing
 
 ---
 
@@ -8,41 +34,51 @@ I'm a developer in Auckland with a Business Analytics background. I build AI-ass
 
 **KiwiCue · An Auckland event guide you can talk to**
 
-Events, markets and movies across Auckland in one bilingual guide (English / 中文). Ask Kiwi out loud — *"something free for the kids this Saturday"* — and it works out what you mean: the TypeSafe Jev model turns the request into filters and ranks the results, DeepSeek answers in conversation, and voice input runs on the browser's own speech recognition. Cinema sessions come straight from HOYTS and EVENT Cinemas, and every recommendation says *why* it was picked.
+Bilingual event discovery with conversational AI, browser voice input and explainable recommendations. TypeSafe Jev turns requests into filters; DeepSeek handles conversation.
 
-[![KiwiCue — AI-powered Auckland event guide with bilingual voice search, using the TypeSafe Jev model. Live screenshot of kiwicue.nz.](assets/project-kiwicue-hd.png?v=light-20261012-2)](https://kiwicue.nz)
+[![KiwiCue cursor walkthrough: select this weekend, filter markets, and open Ask KiwiCue on the live site.](assets/demos/kiwicue-cursor.gif?v=20261016)](https://kiwicue.nz)
+
+*Live-site recording · Mouse selects filters and opens the assistant.*
 
 <p align="center"><a href="https://kiwicue.nz">Live site</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/kiwicue">Source</a></p>
 
 **GuardRun · An AI coding agent with guardrails**
 
-Give DeepSeek or Claude real tools — read and edit files, search the code, run shell commands — without handing over your machine. Every tool call passes a safety gate first: a path sandbox that keeps the agent inside one workspace, a shell policy that sorts commands into allow, ask and block, approval prompts for anything risky, secret redaction, prompt-injection flagging, budgets and an audit log. Written in Python, with over a thousand tests on Windows, macOS and Linux.
+A Python agent harness for DeepSeek and Claude, with workspace sandboxing, tool approval, secret redaction, budgets and audit logs.
 
-[![GuardRun — safety-first AI agent harness for DeepSeek and Claude. Real terminal output: a .env read is blocked, a shell command waits for approval, and risky commands are classified ASK or BLOCK.](assets/project-guardrun-hd.png?v=light-20261012-2)](https://github.com/hannnnnnnny/GuardRun)
+[![GuardRun cursor walkthrough: click through real offline CLI output for a normal read, a blocked secret read, and a shell command denied without approval.](assets/demos/guardrun-cursor.gif?v=20261016)](https://github.com/hannnnnnnny/GuardRun)
+
+*Offline output replay · Mouse switches between actual sandbox results; the model provider is scripted.*
 
 <p align="center"><a href="https://github.com/hannnnnnnny/GuardRun">Source</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/GuardRun/blob/main/docs/security-model.md">Security model</a></p>
 
 **PanSub · Translated subtitles for lecture recordings**
 
-A Chrome extension that overlays translated subtitles on Panopto lectures without replacing the player. It reads Panopto's own captions first; when a recording has none, Audio Mode recognises English on-device and never saves the audio. Bilingual, translation-only or original-only display, plus an academic glossary for business, IT, science and law. No account, no backend, no analytics.
+A privacy-conscious Chrome extension for Panopto, with bilingual captions, on-device audio recognition and an academic glossary. No account or author-owned backend.
 
-[![PanSub — real-time AI Chinese subtitles for lecture recordings. Screenshot of the Chrome extension on a demo lecture.](assets/project-pansub-hd.png?v=light-20261012-2)](https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe)
+[![PanSub cursor walkthrough: change subtitle style and switch bilingual or translation-only display in the actual extension settings page.](assets/demos/pansub-cursor.gif?v=20261016)](https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe)
+
+*Local extension-settings demo · Mouse changes presets and display modes with the built-in preview.*
 
 <p align="center"><a href="https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe">Chrome Web Store</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/pansub">Source</a></p>
 
 **ReNova · A second-hand marketplace with real rules**
 
-Listings, private chat, price negotiation, orders and two-way reviews in one bilingual app. The hard part isn't showing products; it's enforcing who can act, and when. Offers and orders are explicit state machines in the Spring Boot API, so an invalid move is rejected by the backend instead of merely hidden in the UI. Vue 3 front end, Spring Security with JWT, MySQL underneath.
+A bilingual marketplace with listings, negotiation, chat, orders and reviews. Vue 3, Spring Boot, Spring Security and MySQL; offer and order rules are enforced by the API.
 
-[![ReNova — second-hand marketplace with listings, offers, orders and reviews. Live screenshot of the deployed storefront.](assets/project-renova-hd.png?v=light-20261012-2)](https://renova-marketplace.vercel.app)
+[![ReNova cursor walkthrough: browse bicycle search results, open a real listing, and scroll through its details.](assets/demos/renova-cursor.gif?v=20261016)](https://renova-marketplace.vercel.app)
+
+*Live-site recording · Mouse opens a listing and explores the detail page.*
 
 <p align="center"><a href="https://renova-marketplace.vercel.app">Live site</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace">Source</a></p>
 
 **Ashen Depths · A Diablo-like ARPG that fits on a graphing calculator**
 
-A pixel action RPG written in C99 that runs on Windows and on the TI-Nspire CX calculator from the same codebase. Your hero descends endless procedurally generated dungeon floors, fighting, looting and taking the stairs. You shape the build through six classes, a skill tree, a paragon board, aspects and crafting. Take control yourself, or let the idle auto-battle play on and collect offline gains when you come back. All code, pixel art, items and story are original.
+An original C99 action RPG for Windows and TI-Nspire CX: procedural dungeons, six classes, skill trees, loot and idle auto-battle from the same codebase.
 
-[![Ashen Depths — Diablo-like pixel ARPG for Windows and the TI-Nspire CX. In-game screenshot of a battle on dungeon floor 23.](assets/project-ashen-depths-hd.png?v=light-20261012-2)](https://github.com/hannnnnnnny/ARPG-CX/releases/latest)
+[![Ashen Depths cursor walkthrough: switch a replay viewer between original recorded gameplay and build menus. The mouse controls playback, not the game.](assets/demos/ashen-depths-cursor.gif?v=20261016)](https://github.com/hannnnnnnny/ARPG-CX/releases/latest)
+
+*Game-capture replay · Mouse switches original gameplay and menu recordings; this is not live game input.*
 
 <p align="center"><a href="https://github.com/hannnnnnnny/ARPG-CX/releases/latest">Download</a> &nbsp;·&nbsp; <a href="https://github.com/hannnnnnnny/ARPG-CX">Source</a></p>
 
@@ -50,11 +86,17 @@ A pixel action RPG written in C99 that runs on Windows and on the TI-Nspire CX c
 
 ### What I believe
 
-**Start from the friction, not the model.** Each project began with something annoying: event listings scattered across a dozen sites, lectures without captions in your own language, trust between strangers trading second-hand. AI goes in only where it removes that friction.
+**Start from the friction, not the model.** Use AI where it solves a real workflow problem.
 
-**Ship one thin path end to end.** A working slice — interface, API, data, deployed — teaches more than a large unfinished design. That's why every project above has a link you can open today.
+**Ship one thin path end to end.** Build something people can open, inspect and use.
 
-**Be honest about the limits.** KiwiCue labels unavailable sources and empty results instead of hiding them; PanSub tells you machine translation can be wrong. Showing where a system stops is what makes the rest of it trustworthy.
+**Be honest about the limits.** Make unavailable data, translation uncertainty and approval boundaries visible.
+
+### Currently exploring
+
+Practical agent workflows, constrained model outputs, cloud delivery and repeatable evaluations. I use my projects to test how these ideas hold up in working software.
+
+[Preview sources and recording notes](assets/demos/SOURCES.md)
 
 ---
 
